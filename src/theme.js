@@ -4,7 +4,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   palette: {
-   type: "light",
+   type: "dark",
     primary: {
       main: '#115293',
     },
@@ -19,7 +19,7 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-     fontFamily: 'Arial',
+     fontFamily: 'Roboto',
   }
 });
 
