@@ -1,0 +1,12 @@
+a {
+  text-decoration: none;
+  color: #d7ceb2;
+  font-size: 1.5em;
+}
+
+.button {
+  width: 150px;
+  height: 150px;
+  font-weight: 800;
+  font-size: 1.5em;
+}
