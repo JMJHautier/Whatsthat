@@ -1,21 +1,73 @@
-import {Grid} from '@material-ui/core/';
 import {Button} from '@material-ui/core'
+import {Link} from 'react-router-dom'
+import {useState} from 'react'
+import { useForm } from "react-hook-form";
 
 const Ask = () => {
+      const [formStep, setFormStep] = useState(0);
 
+      const { register, handleSubmit, watch, formState: { errors, isValid} } = useForm({mode:"all"});
+      const nextFormStep = () => {
+            setFormStep(prevStep => prevStep+1)
+      }
+      const prevFormStep = () => {
+            setFormStep(prevStep => prevStep -1)
+      }
+      const onSubmit = data => {
+            setFormStep(prevStep => prevStep+1)
+            console.log(data);
+      }
    return (
+ <div> 
+      {formStep === 0 && (
+      <section> 
+            <h3>  1- Copy your code </h3>
+            <form onSubmit={handleSubmit(onSubmit)}>
+            {/* register your input into the hook by invoking the "register" function */}
+                  <input  {...register("code",{required:{value:true, message:"Please insert code",}})} />
 
- <div>
-      <h3>  This is the ask page </h3>
-      <p> 
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pulvinar semper turpis eget pretium. Nunc odio neque, auctor a semper at, blandit in justo. Proin dapibus accumsan enim, ac malesuada dolor aliquet nec. Aenean diam metus, vestibulum in eros a, fringilla eleifend risus. Pellentesque finibus enim libero, sit amet accumsan ipsum venenatis id. Ut quis sem condimentum, faucibus lectus in, consequat odio. Sed luctus elit sit amet ligula accumsan aliquet. Donec mauris odio, euismod et purus at, blandit eleifend orci. Fusce congue quis mi tempus sagittis. Phasellus condimentum, purus in pretium convallis, leo leo consectetur lacus, et egestas urna sem vitae odio. Ut massa felis, aliquam vitae urna ut, volutpat eleifend lectus. Proin dignissim dictum libero vel interdum. Morbi vel mauris ac nulla efficitur tincidunt.
+                  <input disabled={!isValid} type="submit" onClick={nextFormStep} value="Next"/>
+            {/* include validation with required or other standard HTML validation rules */}
+            {errors.code && <p>{errors.code.message}</p>}
+            </form>
+      </section>)
+      }
+      {formStep===1 && (
+      <section> 
+            <h3> 2- Select the word to be highlighted and click on </h3>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                  <input {...register("Whatsthat", { required: {value: true, message:"Please pick a word" }})} />
+            {/* errors will return when field validation fails  */}
+            {errors.Whatsthat && <p>{errors.Whatsthat.message}</p>}
 
-      Cras et velit eget odio posuere convallis ac mattis diam. Sed tincidunt mauris ligula, nec volutpat orci bibendum ac. In at mollis turpis. Donec finibus nec nunc ut luctus. Etiam porta, mauris non accumsan cursus, nulla erat facilisis eros, vitae luctus augue mi eu lorem. Suspendisse pulvinar lobortis libero rutrum maximus. Maecenas sit amet molestie risus. Nullam semper, est a ullamcorper semper, dui erat sagittis purus, sit amet dapibus est nulla in turpis. Proin eu augue felis. Quisque ultrices venenatis odio eget convallis. Fusce nec enim a purus porttitor ornare scelerisque ac tellus.
+                  <input type="submit" onClick={prevFormStep} value="previous"/>
+                  <input type="submit" disabled={!isValid} onClick={nextFormStep} value="Next"/>
+                  
+            </form>
+      </section>
 
-      Sed cursus blandit tortor tempus tempor. Morbi scelerisque dolor sed ante molestie mollis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi malesuada ex in nisi sagittis, non euismod nunc laoreet. Nullam at fringilla felis. Aliquam fringilla tempus sem, ut lobortis purus iaculis vel. Pellentesque finibus eget mi sit amet eleifend. Proin purus quam, dignissim ut enim a, viverra tincidunt metus. Quisque ac est vel ante tristique convallis quis non purus. Sed elementum id leo pharetra ultricies. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin tincidunt rhoncus quam. Curabitur finibus ex at aliquet malesuada.
+      )}
+      {formStep===2 &&(
+      <section> 
+            <h3> 3- Review your submission </h3>
+            <input type="submit" onClick={prevFormStep} value="previous"/>
 
-      Duis augue libero, consectetur in justo viverra, lacinia hendrerit nunc. Curabitur convallis magna non mi auctor, et molestie neque porttitor. Sed ut volutpat ipsum. Proin vestibulum, sapien malesuada ultrices porta, leo tellus volutpat quam, in dignissim urna massa id est. In non nulla eget nulla interdum interdum in vel augue. Fusce sit amet arcu semper, tincidunt eros sagittis, sodales mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent fermentum tristique turpis, id finibus enim varius vitae. Sed interdum, nibh sit amet consectetur vehicula, quam magna tempus lectus, quis commodo est risus non nulla. Etiam eu risus imperdiet, bibendum nunc a, posuere tellus. Aenean sit amet lectus finibus, venenatis nisl a, fermentum ligula. Integer finibus nulla at nunc aliquam ullamcorper quis in urna. Nam maximus, arcu ut porta malesuada, turpis odio blandit urna, at dictum nunc leo ac odio. Maecenas eros libero, scelerisque id mi eget, sodales varius erat. Integer fringilla eget eros vitae posuere. Ut sagittis, est ac sollicitudin gravida, purus purus maximus neque, at mollis ante ex quis leo.
-      </p>
+            <form onSubmit={handleSubmit(onSubmit)}>                  
+                  <input type="submit" />
+            </form>
+      </section>)
+}     
+{formStep >=3 &&(
+      <section>
+            <h3> Congratulations! </h3>
+            <p> Your submission is available at </p>
+            Wanna be notified when you get an answer? 
+            <Button to="/" onClick={nextFormStep}> Notify me per email</Button>
+            <p hidden={formStep===4?false:true}> you will be notified by email! Go back to <Link to="/"> home page</Link></p>
+
+      </section>
+)}
+<pre> {JSON.stringify(watch(), null, 2)}</pre>
 </div>
    ) 
 }
