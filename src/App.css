@@ -1,1 +1,8 @@
+.body {
+  border-radius: 10px;
+  background-color: #587291;
+}
 
+.body h3 {
+  color: white;
+}
