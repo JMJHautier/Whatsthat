@@ -15,19 +15,19 @@ const Home = () => {
       spacing={2}
       > 
          <Grid item>
-            <Button variant="contained" color="primary" className="button" size="large"> 
+            <Button variant="contained" color="primary" className="button-home" size="large"> 
                <Link to="/ask"><strong>Ask</strong></Link>
             </Button>
          </Grid>
 
          <Grid item>
-            <Button variant="contained" color="primary" className="button" size="large"> 
+            <Button variant="contained" color="primary" className="button-home" size="large"> 
                <Link to="/guess"><strong>Guess </strong></Link>
             </Button>
          </Grid>
 
          <Grid item>
-            <Button variant="contained" color="primary" className="button" size="large"> 
+            <Button variant="contained" color="primary" className="button-home" size="large"> 
                <Link to="/search"><strong> Search </strong></Link>
              </Button>
           </Grid>
