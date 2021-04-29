@@ -11,14 +11,17 @@ const Step2 = ({language, content, setContent, onSubmit, prevFormStep, whatsthat
    const { register, handleSubmit, watch, formState: { errors, isValid} } = useForm({mode:"all"});
 //  const breakdown = Quill.getEditor();
 //  console.log(breakdown);
-
-   const onChangeSelection = (range, source, editor) => {
-     if(range) {
-      const selection = editor.getSelection();
-      const text = editor.getText();
-      setWhatsthat(text.substring(selection.index, selection.length))
-     } 
-   }
+//? Using quill to select bits of text. I leave it here for reference, but it is no longer useful
+  //  const onChangeSelection = (range, source, editor) => {
+  //    if(range) {
+  //     const selection = editor.getSelection();
+  //     const text = editor.getText();
+  //     if(whatsthat) {
+  //       setWhatsthat('');
+  //     }
+  //     setWhatsthat(text.substring(selection.index, selection.length))
+  //    } 
+  //  }
 
   useEffect(() => {
     Prism.highlightAll();
@@ -27,34 +30,37 @@ const Step2 = ({language, content, setContent, onSubmit, prevFormStep, whatsthat
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <input type="submit" onClick={prevFormStep} value="previous"/>
-
-      <ReactQuill defaultValue={content}
+      {/*Using quill to select bits of text. I leave it here for reference, but it is no longer useful */}
+      {/* <ReactQuill theme={null}
+                  defaultValue={content}
                   onChangeSelection={onChangeSelection}
-      />
+      /> */}
 
       <pre className="line-numbers">
         <code
-         onSelect={(event)=>{setWhatsthat(event.target.value); console.log(whatsthat)}}
+         onMouseUp={()=>setWhatsthat(window.getSelection().toString())}
          className={`language-${language}`}>
             {content}
          </code>
       </pre>
 
       <pre> {JSON.stringify(watch(), null, 2)}</pre>
-  
-      <p> You have selected:</p>
+      <p> you have selected: <strong>{whatsthat}</strong></p>
+
+      {/* <p> You have selected:</p> */}
 
       <input
+        hidden="true"
          disabled="true"
          {...register("Whatsthat", { required: {value: true, message:"Please pick a word" }})} value={whatsthat}
          />
          {errors.Whatsthat && <p>{errors.Whatsthat.message}</p>}
 
-      <input 
-         disabled={!isValid} 
+      {whatsthat && 
+      (<input 
          type="submit" 
          onClick={nextFormStep} 
-         value="What's that"/>
+         value="What's that"/>)}
     </form>
 
   );
