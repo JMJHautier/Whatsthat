@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom'
 import {useState} from 'react'
 import { useForm } from "react-hook-form";
 import Step1 from './Step1.js';
-import Step2 from './Step2.js'
-
+import Step2 from './Step2.js';
+import Step3 from './Step3.js';
 const Ask = () => {
       const [formStep, setFormStep] = useState(0);
       const [language, setLanguage] = useState("javascript");
@@ -37,7 +37,6 @@ const Ask = () => {
 
                   <Step2 content={content} language={language} onSubmit={onSubmit} prevFormStep={prevFormStep} nextFormStep={nextFormStep} whatsthat={whatsthat} setWhatsthat={setWhatsthat}/>
             <form onSubmit={handleSubmit(onSubmit)}>
-
                   
             </form>
       </section>
@@ -46,6 +45,7 @@ const Ask = () => {
       {formStep===2 &&(
       <section> 
             <h3> 3- Review your submission </h3>
+                  <Step3 content={content} language={language} onSubmit={onSubmit} prevFormStep={prevFormStep} nextFormStep={nextFormStep} whatsthat={whatsthat}/>
             <input type="submit" onClick={prevFormStep} value="previous"/>
 
             <form onSubmit={handleSubmit(onSubmit)}>                  
