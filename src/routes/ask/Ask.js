@@ -2,9 +2,12 @@ import {Button} from '@material-ui/core'
 import {Link} from 'react-router-dom'
 import {useState} from 'react'
 import { useForm } from "react-hook-form";
+import CodeEditor from './CodeEditor.js';
 
 const Ask = () => {
       const [formStep, setFormStep] = useState(0);
+      const [language, setLanguage] = useState("javascript");
+      const [content, setContent] = useState();
 
       const { register, handleSubmit, watch, formState: { errors, isValid} } = useForm({mode:"all"});
       const nextFormStep = () => {
@@ -25,6 +28,39 @@ const Ask = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
             {/* register your input into the hook by invoking the "register" function */}
                   <input  {...register("code",{required:{value:true, message:"Please insert code",}})} />
+
+                  <fieldset>
+                        <legend>Choose language:</legend>
+                        <input
+                        type="radio"
+                        id="javascript"
+                        name="language"
+                        value="javascript"
+                        checked={language === "javascript"}
+                        onChange={() => setLanguage("javascript")}
+                        />
+                        <label htmlFor="javascript">JavaScript</label>
+                        <input
+                        type="radio"
+                        id="xml"
+                        name="language"
+                        value="markup"
+                        checked={language === "markup"}
+                        onChange={() => setLanguage("markup")}
+                        />
+                        <label htmlFor="Html">HTML</label>
+                        <input
+                        type="radio"
+                        id="css"
+                        name="language"
+                        value="css"
+                        checked={language === "css"}
+                        onChange={() => setLanguage("css")}
+                        />
+                        <label htmlFor="css">CSS</label>
+                  </fieldset>
+
+                  <CodeEditor language={language} content={content} setContent={setContent}/>
 
                   <input disabled={!isValid} type="submit" onClick={nextFormStep} value="Next"/>
             {/* include validation with required or other standard HTML validation rules */}

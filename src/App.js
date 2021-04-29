@@ -22,48 +22,48 @@ function App() {
       alignItems="center"
       style={{width: "55%", margin: "auto"}}
       >  
-      <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-        
-        <Route path="/ask">
-          <Grid item xs={12}> 
-            <Nav selected="Ask" notSelected1="Guess" notSelected2="Search"/>
-          </Grid>
-          <Grid item xs={12} className="body" style={{marginTop: '16px'}}> 
-            <Ask />
-          </Grid>
-        </Route>
+        <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
           
-        <Route path="/guess">
-          <Grid item xs={12}> 
-            <Nav selected="Guess" notSelected1="Ask" notSelected2="Search"/>
-          </Grid>
-          <Grid item xs={12} className="body" style={{marginTop: '16px'}}> 
-            <Guess />
-          </Grid>
-        </Route>
+          <Route path="/ask">
+            <Grid item xs={12}> 
+              <Nav selected="Ask" notSelected1="Guess" notSelected2="Search"/>
+            </Grid>
+            <Grid item xs={12} className="body" style={{marginTop: '16px'}}> 
+              <Ask />
+            </Grid>
+          </Route>
+            
+          <Route path="/guess">
+            <Grid item xs={12}> 
+              <Nav selected="Guess" notSelected1="Ask" notSelected2="Search"/>
+            </Grid>
+            <Grid item xs={12} className="body" style={{marginTop: '16px'}}> 
+              <Guess />
+            </Grid>
+          </Route>
 
-        <Route path ="/search">
-          <Grid item xs={12}> 
-            <Nav selected="Search" notSelected1="Guess" notSelected2="Ask"/>
-          </Grid>
-          <Grid item xs={12} className="body" style={{marginTop: '16px'}}> 
-            <Search />
-          </Grid>
-        </Route>
+          <Route path ="/search">
+            <Grid item xs={12}> 
+              <Nav selected="Search" notSelected1="Guess" notSelected2="Ask"/>
+            </Grid>
+            <Grid item xs={12} className="body" style={{marginTop: '16px'}}> 
+              <Search />
+            </Grid>
+          </Route>
 
-        <Route path="/About">
-          <About />
-        </Route>
-        <Route path="/user">
-          <User />
-        </Route>
-      </Switch>
-      </Grid>
-      </main>
-    </div>
+          <Route path="/About">
+            <About />
+          </Route>
+          <Route path="/user">
+            <User />
+          </Route>
+        </Switch>
+        </Grid>
+        </main>
+      </div>
   );
 }
 
