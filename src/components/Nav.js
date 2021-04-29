@@ -19,13 +19,13 @@ const routeNotSelected2 = `/${notSelected2}`
    >
 
             <Grid item xs={6} className="notSelected">
-                  <Button component={Link} to={routeNotSelected1} variant="contained"  color="primary" style={{fontSize:"1.5em"}} fullWidth>
+                  <Button component={Link} to={routeNotSelected1} variant="contained"  color="primary" style={{fontSize:"1.5em", color:'#D7CEB2'}} fullWidth>
                      {notSelected1}
                   </Button> 
             </Grid>
 
             <Grid item xs={6} color="primary" className="notSelected">
-               <Button component={Link} to={routeNotSelected2} variant="contained"  color="primary" style={{fontSize:"1.5em"}} fullWidth>
+               <Button component={Link} to={routeNotSelected2} variant="contained"  color="primary" style={{fontSize:"1.5em",color:'#D7CEB2'}} fullWidth>
                      {notSelected2}
                   </Button>
             </Grid>
