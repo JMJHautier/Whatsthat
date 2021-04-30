@@ -5,11 +5,15 @@ import { useForm } from "react-hook-form";
 import Step1 from './Step1.js';
 import Step2 from './Step2.js';
 import Step3 from './Step3.js';
+import Step4 from './Step4.js';
+
 const Ask = () => {
       const [formStep, setFormStep] = useState(0);
       const [language, setLanguage] = useState("javascript");
       const [content, setContent] = useState();
       const [whatsthat, setWhatsthat] = useState(""); 
+      const [onlineId, setOnlineId] = useState('');
+       const askId = `ask/${onlineId}`;
 
       const { register, handleSubmit, watch, formState: { errors, isValid} } = useForm({mode:"all"});
       const nextFormStep = () => {
@@ -45,25 +49,19 @@ const Ask = () => {
       {formStep===2 &&(
       <section> 
             <h3> 3- Review your submission </h3>
-                  <Step3 content={content} language={language} onSubmit={onSubmit} prevFormStep={prevFormStep} nextFormStep={nextFormStep} whatsthat={whatsthat}/>
-            <input type="submit" onClick={prevFormStep} value="previous"/>
+                  <Step3 content={content} language={language} onSubmit={onSubmit} prevFormStep={prevFormStep} nextFormStep={nextFormStep} whatsthat={whatsthat} setOnlineId={setOnlineId}/>
 
-            <form onSubmit={handleSubmit(onSubmit)}>                  
-                  <input type="submit" />
-            </form>
       </section>)
-}     
-{formStep >=3 &&(
-      <section>
+      }     
+      {formStep >=3 &&(
+            <section>
             <h3> Congratulations! </h3>
-            <p> Your submission is available at </p>
-            Wanna be notified when you get an answer? 
-            <Button to="/" onClick={nextFormStep}> Notify me per email</Button>
-            <p hidden={formStep===4?false:true}> you will be notified by email! Go back to <Link to="/"> home page</Link></p>
 
-      </section>
-)}
-<pre> {JSON.stringify(watch(), null, 2)}</pre>
+                  <Step4 askId={askId} nextFormStep={nextFormStep} formStep={formStep}/>
+
+            </section>
+      )}
+{/* <pre> {JSON.stringify(watch(), null, 2)}</pre> */}
 </div>
    ) 
 }
