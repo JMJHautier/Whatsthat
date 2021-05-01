@@ -3,23 +3,34 @@ import Prism from "prismjs";
 import './codeEditor.css';
 import './prism.css'
 import {useParams} from 'react-router-dom';
+import Guesses from '../guess/GuessByAsk.js';
+import GuessForm from '../guess/SingleGuess.js';
 
 const SingleAsk = () => {
    const [ask, setAsk] = useState([])
+   const [formSubmitted, setFormSubmitted] = useState(false); 
+
    const {id} = useParams();
+
    const code = useRef();
 
    const highlight = (text) => {
+      setTimeout(()=>{
       let innerHTML = code.current.innerHTML;
-      console.log(code)
-      console.log(innerHTML)
-      const index = innerHTML.indexOf(text);
-      console.log(index);
-      if (index >= 0) { 
-         innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
-         code.current.innerHTML = innerHTML;
-      }
-   
+     
+
+         if(innerHTML != '' && ask.whatsthat != undefined) {
+            console.log(innerHTML)
+            console.log(ask.whatsthat)
+         const index = innerHTML.indexOf(text);
+         console.log(index);
+         if (index >= 0) { 
+            innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
+            code.current.innerHTML = innerHTML;
+            }
+         }
+      },1000)
+      
       }
 
    useEffect(() => {
@@ -28,11 +39,14 @@ const SingleAsk = () => {
          const data = await response.json();
          setAsk(data);
          console.log(ask);
+         highlight(ask.whatsthat);
+
       }
       getAsk();
-      highlight(ask.whatsthat);
+
       Prism.highlightAll();
-   }, [])
+
+   }, [ask.whatsthat])
 
 
 return (
@@ -50,8 +64,11 @@ return (
                   {ask.body}
                </code>
             </pre>
+         <GuessForm setFormSubmitted={setFormSubmitted}/>
+         <Guesses id={id} formSubmitted={formSubmitted} setFormSubmitted={setFormSubmitted}/>
          </div>)
-         :(<p>Loading</p>)}
+         :(<p>Loading</p>)
+         }
    </div>
 )
 

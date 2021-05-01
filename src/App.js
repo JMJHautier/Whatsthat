@@ -9,6 +9,7 @@ import User from './routes/user/User.js';
 import Header from './components/Header.js'
 import Nav from './components/Nav.js'
 import SingleAsk from './routes/ask/SingleAsk.js'
+import SingleGuess from './routes/guess/SingleGuess.js'
 import {Grid} from '@material-ui/core'
 
 function App() {
@@ -45,12 +46,21 @@ function App() {
               </Grid>
             </Route>
             
-          <Route path="/guess">
+          <Route exact path="/guess">
             <Grid item xs={12}> 
               <Nav selected="Guess" notSelected1="Ask" notSelected2="Search"/>
             </Grid>
             <Grid item xs={12} className="body" style={{marginTop: '16px'}}> 
               <Guess />
+            </Grid>
+          </Route>
+
+          <Route path="/guess/:id">
+            <Grid item xs={12}> 
+              <Nav selected="Guess" notSelected1="Ask" notSelected2="Search"/>
+            </Grid>
+            <Grid item xs={12} className="body" style={{marginTop: '16px'}}> 
+              <SingleAsk />
             </Grid>
           </Route>
 
