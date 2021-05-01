@@ -1,14 +1,12 @@
 import {Link} from 'react-router-dom';
 import {useEffect, useState} from 'react'; 
 
-const Guess = () => {
+const Guess = ({formSubmitted}) => {
    const randomLink=""; 
    const [allAsks, setAllAsks] = useState(['']);
    const serverLink = process.env.ORIGIN || "http://localhost:3001";
-   const frontEndLink= process.env.ORIGIN2 || "http://localhost:3000";
-   const singleAskLink= `${frontEndLink}/guess/:id`;
    const allAsksLink = `${serverLink}/ask/`;
-   
+
    useEffect (()=> {
       const getAllAsks = async () => {
       const response = await fetch(allAsksLink);
@@ -17,7 +15,7 @@ const Guess = () => {
       console.log(allAsks)
       }
       getAllAsks()
-   }, []) 
+   }, [formSubmitted]) 
 
    return (
       <div>
@@ -30,10 +28,13 @@ const Guess = () => {
             <th>unknown word</th>
             </tr>
             {allAsks.map(singleAsk => 
-               { return (
+               { 
+                  const id = singleAsk["_id"];
+                  const singleAskLink=`/guess/${id}`
+                  return (
                <tr> 
                   <td>{singleAsk.time}</td>
-                  <td><Link to="">{singleAsk.whatsthat}</Link></td>
+                  <td><Link to={singleAskLink}>{singleAsk.whatsthat}</Link></td>
                </tr>
                )
                })
