@@ -38,7 +38,7 @@ const { register, handleSubmit, watch, formState: { errors, isValid} } = useForm
 
       <pre className="line-numbers">
         <code
-        onMouseUp={()=>setWhatsthat(window.getSelection().toString())}
+        onMouseUp={()=>setWhatsthat(window.getSelection().toString().trim())}
         className={`language-${language}`}>
 
         {content}
