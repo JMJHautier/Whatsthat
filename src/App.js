@@ -11,6 +11,12 @@ import Nav from './components/Nav.js'
 import SingleAsk from './routes/ask/SingleAsk.js'
 import SingleGuess from './routes/guess/SingleGuess.js'
 import {Grid} from '@material-ui/core'
+import { SingleBedOutlined } from '@material-ui/icons';
+
+import SignIn from './routes/user/SignIn';
+import SignUp from './routes/user/SignUp';
+import SecretInfo from './routes/user/SecretInfo';
+
 
 function App() {
   return (
@@ -78,6 +84,9 @@ function App() {
           </Route>
           <Route path="/user">
             <User />
+            <SignIn/>
+            <SignUp />
+            <SecretInfo />
           </Route>
         </Switch>
         </Grid>
