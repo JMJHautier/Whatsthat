@@ -16,9 +16,11 @@ import { SingleBedOutlined } from '@material-ui/icons';
 import SignIn from './routes/user/SignIn';
 import SignUp from './routes/user/SignUp';
 import SecretInfo from './routes/user/SecretInfo';
-
-
+import {useContext, Fragment} from 'react';
+import {AuthContext} from './context/AuthContext'
 function App() {
+  const {isAuthenticated} = useContext(AuthContext)
+
   return (
     <div className="App">
       <Header />
@@ -83,10 +85,14 @@ function App() {
             <About />
           </Route>
           <Route path="/user">
-            <User />
-            <SignIn/>
-            <SignUp />
-            <SecretInfo />
+            {isAuthenticated?
+            (<Fragment> <User /> </Fragment>)
+            :
+            (<SignIn/>)}
+          </Route>
+
+          <Route path="/signup">
+                <SignUp />
           </Route>
         </Switch>
         </Grid>
