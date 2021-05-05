@@ -13,7 +13,7 @@ const SingleGuess = ({setFormSubmitted, formSubmitted}) => {
    {
       console.log(data, event)
       const newGuess = {
-         ask_id: id,
+         ask: id,
          body: data.body,
          source: data.source,
          comment: data.comment,
