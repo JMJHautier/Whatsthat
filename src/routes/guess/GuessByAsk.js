@@ -11,6 +11,7 @@ const serverLink= process.env.ORIGIN || "http://localhost:3001";
 useEffect(() => {
    const getGuessesByAsk = async () => {
       try {
+         console.log(id)
       const link=`${serverLink}/guess/ask/${id}`
       const response = await fetch(link)
       const data = await response.json()

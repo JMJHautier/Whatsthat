@@ -1,6 +1,10 @@
 import { useForm } from "react-hook-form";
+import {useContext} from 'react';
+import {AuthContext} from '../../context/AuthContext'; 
+import {Redirect} from 'react-router-dom';
 
 const SignUp = () => {
+const {isAuthenticated, setIsAuthenticated, error, setError}= useContext(AuthContext); 
 const serverLink = process.env.ORIGIN || "http://localhost:3001";
 const { register, handleSubmit, watch, formState: { errors, isValid, isSubmitted, onError} } = useForm({mode:"all"});
 
@@ -26,16 +30,24 @@ const onSubmit = async (data, event) =>
      
        try {
          const response = await fetch(`${serverLink}/auth/signup`, options)
-         const data = await response.json()
-         console.log(data) 
+         const {token, error} = await response.json()
+         if(error) {
+            setError(error)
+            return {error};
+         }
+         localStorage.setItem('token', token);
+         setIsAuthenticated(true);
+         console.log(token); 
        } catch (error) {console.log(error)}
       
       }
+if(isAuthenticated) return <Redirect to="/" />;
 
- return <div>Sign-up
+ return (<div>
+    {error && <div> error {error}</div>}
 <form onSubmit={handleSubmit(onSubmit, onError)}>
          <h3> Sign up </h3>
-         <label for="username">Your username</label>
+         <label htmlFor="username">Your username</label>
          <input
             id="username"
             type="text"
@@ -44,7 +56,7 @@ const onSubmit = async (data, event) =>
             maxLength:{value: 30, message:"that's too long! Please keep it under 30 characters"}})} 
          />
          {errors.username && <p>{errors.username.message}</p>}
-         <label for="email">Your email</label>
+         <label htmlFor="email">Your email</label>
          <input
             id="email"
             type="text"
@@ -54,25 +66,35 @@ const onSubmit = async (data, event) =>
          />
          {errors.email && <p>{errors.email.message}</p>}
 
-         <label for="password">Password(at least 8 characters, including one special character)</label>
+         <label htmlFor="password">Password(at least 8 characters, including one special character)</label>
          <input
             id="password"
-            type="text"
+            type="password"
             {...register("password",{
             required: {value:true, message:"Please provide a password"},
             maxLength:{value:20, message:"Your Password is too long! Please pick a password between 8 and 20 characters"}, 
             minLength:{value:8, message:"Your Password is too short! Please submit at least 8 characters"}, 
             pattern:{value: /(?=.*[!?@#$%^&-+=()])/, message:"Please include at least one special character(!?@#$%&*()-+=^)"}
             })}
+         />
+         {/* <input
+            id="passwordCheck"
+            type="password"
+            {...register("passwordCheck",{
+            required: {value:true, message:"Please rewrite your password"},
+            maxLength:{value:20, message:"Your Password is too long! Please pick a passwordCheck between 8 and 20 characters"}, 
+            minLength:{value:8, message:"Your Password is too short! Please submit at least 8 characters"}, 
+            pattern:{value: /(?=.*[!?@#$%^&-+=()])/, message:"Please include at least one special character(!?@#$%&*()-+=^)"}
+            })}
 
          />
-         {errors.password && <p>{errors.password.message}</p>}
+         {errors.passwordCheck && <p>{errors.passwordCheck.message}</p>} */}
 
          <button type="submit">Submit</button>
       
       </form>
       <pre> {JSON.stringify(watch(), null, 2)}</pre>
-      </div>
+      </div>)
 }
 
 export default SignUp

@@ -5,11 +5,17 @@ import './prism.css'
 import { useForm } from "react-hook-form";
 import ReactQuill, {Quill} from 'react-quill'; 
 import 'react-quill/dist/quill.snow.css';
+import {useContext} from 'react'; 
+import {AuthContext} from '../../context/AuthContext.js'; 
+
+
 // import HighlightText from '../../components/highlight.js'
 
 const Step3 = ({language, content, setContent, prevFormStep, whatsthat, setWhatsthat, nextFormStep, setOnlineId}) => {
 
    const { register, handleSubmit, watch, formState: { errors, isValid} } = useForm({mode:"all"});
+   const {user, getUser} = useContext(AuthContext); 
+  const {_id}= user 
 
    const code = useRef();
 
@@ -37,7 +43,8 @@ const onSubmit = async (event) => {
   const newAsk = {
     body: content,
     whatsthat: whatsthat,
-    language: language
+    language: language,
+    author: _id
   }
   console.log(newAsk);
   event.preventDefault()
@@ -53,7 +60,8 @@ const onSubmit = async (event) => {
     const response = await fetch(`http://localhost:3001/ask/`, options)
     const data = await response.json()
     console.log(data) 
-    setOnlineId(data["_id"])
+    setOnlineId(data.newAsk["_id"])
+    getUser();
     nextFormStep()
   } catch (error) {console.log(error)}
 
