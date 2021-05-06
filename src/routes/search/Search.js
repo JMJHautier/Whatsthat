@@ -1,7 +1,8 @@
 import {Link} from 'react-router-dom';
 import {useState, useEffect} from 'react'; 
 import SearchBar from './SearchBar.js'
-
+import {Button} from '@material-ui/core'
+// import mdn from '%PUBLIC_URL%/mdn.jpg';
 const Search = () => {
    const serverLink = process.env.ORIGIN || "http://localhost:3001";
    const options = ['Option 1', 'Option 2'];
@@ -25,13 +26,19 @@ const Search = () => {
          else{console.log("no search done")}
       }
    , [value])
-
+      const webdoc=`https://developer.mozilla.org/en-US/docs/Glossary/${value.body}`
+      const stack=`https://stackoverflow.com/search?q=${value.body}`
    return (
       <div>
          <SearchBar value={value} setValue={setValue}/>
 
-         {askByGuess?
-         (<table>
+         {value&&askByGuess?
+         (<div>
+         <a href={webdoc} target="_blank"> <img src="mdn.jpg" alt="mdn" href={webdoc}/></a>
+         <a href={stack} target="_blank"> <img src="stack.bmp" alt="stack" href={stack}/></a>
+         <h3>Examples of {value.body}</h3> 
+         
+         <table>
             <tr>
                <th>Date</th>
                <th>Language</th>
@@ -47,8 +54,8 @@ const Search = () => {
                      <td> <Link to={link}>{singleAsk.body.substr(0,50)}...</Link></td>
                   </tr>)
                })}
-            </table>)
-            :<p>Loading</p>}
+            </table></div>)
+            :<p></p>}
 
            
          

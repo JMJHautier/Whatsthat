@@ -35,10 +35,10 @@ const [allGuesses, setAllGuesses] = useState();
         onChange={(event, newValue) => {
            setValue(newValue)
         }}
-        id="debug"
+        id="answers"
         debug
-        renderInput={(params) => <TextField {...params} label="debug" margin="normal" />}
-      />):<p>Loading</p>}
+        renderInput={(params) => <TextField {...params} label="search a term" margin="normal" />}
+      />):<p></p>}
 
 
 </div>
