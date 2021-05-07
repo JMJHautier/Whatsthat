@@ -1,11 +1,12 @@
 import {useState, useEffect} from 'react';
-
+import CheckIcon from '@material-ui/icons/Check';
+import { Checkbox } from '@material-ui/core';
 
 const GuessByAsk = ({id, formSubmitted}) => {
 
 const [allGuess, setAllGuess] = useState();
 const [isIncrease, setIsIncrease] = useState(false);
-const serverLink= process.env.ORIGIN || "http://localhost:3001";
+const serverLink= process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 
 
 useEffect(() => {
@@ -45,7 +46,7 @@ const increaseRating = async (event)=> {
         }
    console.log(event);
     try {
-      const response = await fetch(`http://localhost:3001/guess/${event.target.id}`, options)
+      const response = await fetch(`${serverLink}/guess/${event.target.id}`, options)
       const data = await response.json()
       console.log(data) 
       setIsIncrease(!isIncrease)
@@ -53,6 +54,26 @@ const increaseRating = async (event)=> {
   
 }
 
+const getVerified = async (event) => {
+   const newVerify = {
+      isVerified: event.target.checked
+   }
+   console.log(event.target.checked)
+   console.log(event)
+   console.log(newVerify)
+
+   const options = {
+      method: 'PUT', 
+      body: JSON.stringify(newVerify), 
+      headers: {
+         'Content-Type': 'application/json'
+      }
+   }
+   try {
+      const response = await fetch(`${serverLink}/guess/${event.target.id}`, options)
+      
+   }catch(error) {console.log(error)}
+}
 
 return (
    <div>
@@ -60,10 +81,15 @@ return (
       {allGuess?
          (<table> <tr> <th>Answer</th> <th>comment</th> <th>rating</th></tr>
          {allGuess.map(singleAsk=>{
-            return (<tr> 
+            return (<tr className={singleAsk.isVerified?"verified":"notverified"}> 
                      <td>{singleAsk.body}</td> 
                      <td>{singleAsk.comment}</td>
-                     <td><button onClick={increaseRating} id={singleAsk["_id"]} className="rating_positive"> positive:</button> {singleAsk["rating_positive"]} <button onClick={increaseRating} id={singleAsk["_id"]} className="rating_negative" > negative:</button> {singleAsk["rating_negative"]}</td> 
+                     <td><button onClick={increaseRating} id={singleAsk["_id"]} className="rating_positive"> positive:</button>
+                      {singleAsk["rating_positive"]} 
+                      <button onClick={increaseRating} id={singleAsk["_id"]} className="rating_negative" > negative:</button>
+                       {singleAsk["rating_negative"]}</td> 
+                     <td> <Checkbox onClick={getVerified} checked={singleAsk.isVerified} id={singleAsk["_id"]} /> 
+                      </td>
                   </tr>)
          })}
          </table>):<p>Loading</p>

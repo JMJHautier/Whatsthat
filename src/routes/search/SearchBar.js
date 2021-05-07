@@ -6,7 +6,7 @@ import {useState, useEffect} from 'react';
 const SearchBar = ({value, setValue}) => {
 
 const [allGuesses, setAllGuesses] = useState(); 
-   const serverLink = process.env.ORIGIN || "http://localhost:3001";
+   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 
    useEffect(()=> {
       const getAllGuesses = async () => {
@@ -35,10 +35,10 @@ const [allGuesses, setAllGuesses] = useState();
         onChange={(event, newValue) => {
            setValue(newValue)
         }}
-        id="debug"
+        id="answers"
         debug
-        renderInput={(params) => <TextField {...params} label="debug" margin="normal" />}
-      />):<p>Loading</p>}
+        renderInput={(params) => <TextField {...params} label="search a term" margin="normal" />}
+      />):<p></p>}
 
 
 </div>

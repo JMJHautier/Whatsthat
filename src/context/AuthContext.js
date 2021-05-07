@@ -6,7 +6,7 @@ const AuthState = ({children}) => {
    const [isAuthenticated, setIsAuthenticated] = useState(false); 
    const [user, setUser] = useState({});
    const [error, setError] = useState('')
-   const serverLink = process.env.ORIGIN || "http://localhost:3001";
+   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 
    const logOut = () => {
       localStorage.removeItem('token');

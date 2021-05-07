@@ -16,6 +16,7 @@ const Step3 = ({language, content, setContent, prevFormStep, whatsthat, setWhats
    const { register, handleSubmit, watch, formState: { errors, isValid} } = useForm({mode:"all"});
    const {user, getUser} = useContext(AuthContext); 
   const {_id}= user 
+  const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 
    const code = useRef();
 
@@ -57,7 +58,7 @@ const onSubmit = async (event) => {
       }
 
   try {
-    const response = await fetch(`http://localhost:3001/ask/`, options)
+    const response = await fetch(`${serverLink}/ask/`, options)
     const data = await response.json()
     console.log(data) 
     setOnlineId(data.newAsk["_id"])

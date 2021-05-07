@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react';
 const Guess = ({formSubmitted}) => {
    const randomLink=""; 
    const [allAsks, setAllAsks] = useState(['']);
-   const serverLink = process.env.ORIGIN || "http://localhost:3001";
+   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
    const allAsksLink = `${serverLink}/ask/`;
 
    useEffect (()=> {

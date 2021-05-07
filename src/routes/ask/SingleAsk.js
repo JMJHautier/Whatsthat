@@ -5,11 +5,12 @@ import './prism.css'
 import {useParams} from 'react-router-dom';
 import Guesses from '../guess/GuessByAsk.js';
 import GuessForm from '../guess/SingleGuess.js';
+import {Button} from '@material-ui/core';
 
 const SingleAsk = () => {
    const [ask, setAsk] = useState([])
    const [formSubmitted, setFormSubmitted] = useState(false); 
-
+   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
    const {id} = useParams();
 
    const code = useRef();
@@ -30,10 +31,11 @@ const SingleAsk = () => {
             }
       
       }
-
+   
+   
    useEffect(() => {
       const getAsk = async () => {
-         const response = await fetch(`http://localhost:3001/ask/${id}`)
+         const response = await fetch(`${serverLink}/ask/${id}`)
          const data = await response.json();
          setAsk(data);
          console.log(ask);
