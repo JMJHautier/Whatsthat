@@ -46,7 +46,7 @@ const increaseRating = async (event)=> {
         }
    console.log(event);
     try {
-      const response = await fetch(`http://localhost:3001/guess/${event.target.id}`, options)
+      const response = await fetch(`${serverLink}/guess/${event.target.id}`, options)
       const data = await response.json()
       console.log(data) 
       setIsIncrease(!isIncrease)

@@ -8,6 +8,7 @@ const SingleGuess = ({setFormSubmitted, formSubmitted}) => {
    const {id} = useParams(); 
    console.log(id)
    const { register, handleSubmit, watch, formState: { errors, isValid, isSubmitted} } = useForm({mode:"all"});
+   const serverLink = process.env.ORIGIN || "http://localhost:3001";
 
    const onSubmit = async (data, event) => 
    {
@@ -30,7 +31,7 @@ const SingleGuess = ({setFormSubmitted, formSubmitted}) => {
       }
      
        try {
-         const response = await fetch(`http://localhost:3001/guess/`, options)
+         const response = await fetch(`${serverLink}`, options)
          const data = await response.json()
          console.log(data) 
          setFormSubmitted(!formSubmitted)

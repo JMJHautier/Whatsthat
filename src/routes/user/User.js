@@ -54,14 +54,14 @@ const updateAlert = async (event, id) => {
   }
   if(event.target.checked){
     try {
-      const response = await fetch(`http://localhost:3001/user/addalert/${user["_id"]}`, options)
+      const response = await fetch(`${serverLink}/user/addalert/${user["_id"]}`, options)
       const data = await response.json()
       console.log(data) 
       getUser();
     } catch (error) 
     {console.log(error)}
   } else{
-    const response = await fetch(`http://localhost:3001/user/removealert/${user["_id"]}`, options)
+    const response = await fetch(`${serverLink}/user/removealert/${user["_id"]}`, options)
     const data = await response.json()
     console.log(data) 
     getUser();
