@@ -26,8 +26,8 @@ const SingleGuess = ({setFormSubmitted, formSubmitted}) => {
              method: 'POST',
              body: JSON.stringify(newGuess),
              headers: {
-               'Content-Type: application/json'      
-            }
+               'Content-Type': 'application/json'
+             }
       }
      
        try {
