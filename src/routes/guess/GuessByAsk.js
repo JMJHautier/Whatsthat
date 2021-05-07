@@ -6,7 +6,7 @@ const GuessByAsk = ({id, formSubmitted}) => {
 
 const [allGuess, setAllGuess] = useState();
 const [isIncrease, setIsIncrease] = useState(false);
-const serverLink= process.env.ORIGIN || "http://localhost:3001";
+const serverLink= process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 
 
 useEffect(() => {

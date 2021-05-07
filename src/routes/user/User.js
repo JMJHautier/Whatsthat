@@ -10,7 +10,7 @@ const {username, email, ask, alert} = user;
 // const [statusCheckbox, setCheckbox] = useState([])
 const [switchState, setSwitchState] = useState([]);
 console.log(switchState)
-const serverLink = process.env.ORIGIN || "http://localhost:3001";
+const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 
 
 // useEffect(() => {

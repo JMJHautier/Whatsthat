@@ -8,7 +8,7 @@ const SingleGuess = ({setFormSubmitted, formSubmitted}) => {
    const {id} = useParams(); 
    console.log(id)
    const { register, handleSubmit, watch, formState: { errors, isValid, isSubmitted} } = useForm({mode:"all"});
-   const serverLink = process.env.ORIGIN || "http://localhost:3001";
+   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 
    const onSubmit = async (data, event) => 
    {

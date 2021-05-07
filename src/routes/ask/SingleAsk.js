@@ -10,7 +10,7 @@ import {Button} from '@material-ui/core';
 const SingleAsk = () => {
    const [ask, setAsk] = useState([])
    const [formSubmitted, setFormSubmitted] = useState(false); 
-   const serverLink = process.env.ORIGIN || "http://localhost:3001";
+   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
    const {id} = useParams();
 
    const code = useRef();

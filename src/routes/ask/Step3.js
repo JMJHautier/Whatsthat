@@ -16,7 +16,7 @@ const Step3 = ({language, content, setContent, prevFormStep, whatsthat, setWhats
    const { register, handleSubmit, watch, formState: { errors, isValid} } = useForm({mode:"all"});
    const {user, getUser} = useContext(AuthContext); 
   const {_id}= user 
-  const serverLink = process.env.ORIGIN || "http://localhost:3001";
+  const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 
    const code = useRef();
 

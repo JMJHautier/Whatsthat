@@ -6,7 +6,7 @@ import {useState, useEffect} from 'react';
 const SearchBar = ({value, setValue}) => {
 
 const [allGuesses, setAllGuesses] = useState(); 
-   const serverLink = process.env.ORIGIN || "http://localhost:3001";
+   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 
    useEffect(()=> {
       const getAllGuesses = async () => {

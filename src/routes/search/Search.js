@@ -4,11 +4,11 @@ import SearchBar from './SearchBar.js'
 import {Button} from '@material-ui/core'
 // import mdn from '%PUBLIC_URL%/mdn.jpg';
 const Search = () => {
-   const serverLink = process.env.ORIGIN || "http://localhost:3001";
+   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
    const options = ['Option 1', 'Option 2'];
    const [value, setValue] = useState(options[0]);
    const [askByGuess, setAskByGuess] = useState();
-
+   console.log(serverLink)
    useEffect (
       ()=> {
          const getAsksByGuesses = async() => {
