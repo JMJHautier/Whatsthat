@@ -26,12 +26,12 @@ const SingleGuess = ({setFormSubmitted, formSubmitted}) => {
              method: 'POST',
              body: JSON.stringify(newGuess),
              headers: {
-               'Content-Type': 'application/json'
-             }
+               'Content-Type: application/json'      
+            }
       }
      
        try {
-         const response = await fetch(`${serverLink}`, options)
+         const response = await fetch(`${serverLink}/guess`, options)
          const data = await response.json()
          console.log(data) 
          setFormSubmitted(!formSubmitted)
