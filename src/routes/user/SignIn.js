@@ -6,7 +6,7 @@ import {Redirect} from 'react-router-dom';
 const SignIn = () => {
 
    const {isAuthenticated, setIsAuthenticated, error, setError, getUser}= useContext(AuthContext); 
-   const serverLink = process.env.ORIGIN || "http://localhost:3001";
+   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
    const { register, handleSubmit, watch, formState: { errors, isValid, isSubmitted, onError} } = useForm({mode:"all"});
    
    const onSubmit = async (data, event) => 
