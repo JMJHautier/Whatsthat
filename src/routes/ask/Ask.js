@@ -23,6 +23,9 @@ const Ask = () => {
             setFormStep(prevStep => prevStep -1)
       }
       const onSubmit = data => {
+            if(data.code){
+            setContent(data.code)
+            }
             setFormStep(prevStep => prevStep+1)
             console.log(data);
       }

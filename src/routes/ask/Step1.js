@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import Prism from "prismjs";
 import './codeEditor.css';
 import './prism.css'
-import { useForm } from "react-hook-form";
+import { useForm, control, Controller } from "react-hook-form";
+import {TextField, Button} from '@material-ui/core';
+
 
 const Step1 = ({language, content, setContent, onSubmit, setLanguage, nextFormStep}) => {
 
-  const { register, handleSubmit, watch, formState: { errors, isValid} } = useForm({mode:"all", defaultValues:{language:'javascript'}});
+  const { register, handleSubmit, control, watch, formState: { errors, isValid} } = useForm({mode:"all", defaultValues:{language:'javascript'}});
 
   const handleKeyDown = evt => {
     let value = content,
@@ -69,20 +71,46 @@ const Step1 = ({language, content, setContent, onSubmit, setLanguage, nextFormSt
             {/* include validation with required or other standard HTML validation rules */}
             {errors.code && <p>{errors.code.message}</p>}
 
-    <div className="code-edit-container">
-      <textarea
+    {/* < className="code-edit-container"> */}
+
+      <Controller
+        name="code"
+        control={control}
+        defaultValue=""
+        rules={{required:{value:true, message:"Please insert code"}}}
+        onChange={evt => setContent(evt.target.value)}
+        onKeyDown={handleKeyDown}
+        value={content}
+        render={({field:{onChange, handleKeyDown, content}, fieldState:{error}})=> (
+          <TextField
+          label="copy your code here!"
+          multiline
+          rowsMax={10}
+          fullWidth
+          value={content}
+          onChange={onChange}
+          error={!!error}
+          helperText={error?error.message:null}
+          onKeyDown={handleKeyDown}
+          variant="outlined"
+        />
+
+
+        )}/> 
+
+      {/* <textarea
       {...register("code", {required:{value:true, message:"Please insert code",}})}
         className="code-input"
         value={content}
         onChange={evt => setContent(evt.target.value)}
         onKeyDown={handleKeyDown}
-      />
+      /> */}
       <pre className="line-numbers">
-        <code className={`language-${language}`}>{content}</code>
+        <code className={`language-${language}`}>{watch('code')}</code>
       </pre>
-    </div>
+    
     <pre> {JSON.stringify(watch(), null, 2)}</pre>
-    <input disabled={!isValid} type="submit" onClick={nextFormStep} value="Next"/>
+    <input disabled={!isValid} type="submit" onClick={() => {setContent(watch('code'));nextFormStep()}} value="Next"/>
     </form>
 
   );
