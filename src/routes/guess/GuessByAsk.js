@@ -78,7 +78,7 @@ const getVerified = async (event) => {
 return (
    <div>
       <h3> Previous answers </h3>
-      {allGuess?
+      {allGuess&&allGuess[0]?
          (<table> <tr> <th>Answer</th> <th>comment</th> <th>rating</th></tr>
          {allGuess.map(singleAsk=>{
             return (<tr className={singleAsk.isVerified?"verified":"notverified"}> 
@@ -92,7 +92,7 @@ return (
                       </td>
                   </tr>)
          })}
-         </table>):<p>Loading</p>
+         </table>):<h4>No answer submitted yet!</h4>
       }
    </div>
    )

@@ -3,19 +3,19 @@ import Prism, { highlight } from "prismjs";
 import './codeEditor.css';
 import './prism.css'
 import { useForm } from "react-hook-form";
-import ReactQuill, {Quill} from 'react-quill'; 
 import 'react-quill/dist/quill.snow.css';
 import {useContext} from 'react'; 
 import {AuthContext} from '../../context/AuthContext.js'; 
+import {Button} from '@material-ui/core'
+import useStyles from './styles.js'
 
-
-// import HighlightText from '../../components/highlight.js'
 
 const Step3 = ({language, content, setContent, prevFormStep, whatsthat, setWhatsthat, nextFormStep, setOnlineId}) => {
 
    const { register, handleSubmit, watch, formState: { errors, isValid} } = useForm({mode:"all"});
    const {user, getUser} = useContext(AuthContext); 
   const {_id}= user 
+  const classes= useStyles();
   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 
    const code = useRef();
@@ -70,10 +70,10 @@ const onSubmit = async (event) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <input type="submit" onClick={prevFormStep} value="previous"/>
-      <h3> What is  </h3>
-      <h3><span class="highlight">{whatsthat}</span></h3>
-      <h3> in my code: </h3>
+      <Button className={classes.smallbutton} variant="contained" size="large" color="primary" onClick={prevFormStep}> Previous </Button>
+      <h4> What is  </h4>
+      <h4><span class="highlight">{whatsthat}</span></h4>
+      <h4> in my code: </h4>
       <pre className="line-numbers" >
         <code ref={code}
           className={`language-${language}`}>
@@ -81,8 +81,7 @@ const onSubmit = async (event) => {
          </code>
       </pre>
 
-      {/* <pre> {JSON.stringify(watch(), null, 2)}</pre> */}
-    <input type="submit" onClick={onSubmit} value="submit"/>
+    <Button className={classes.button} variant="contained" size="large" color="primary" onClick={onSubmit}>Publish </Button>
 
     </form>)
 

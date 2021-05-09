@@ -19,7 +19,7 @@ const Header = () => {
 
       </Grid>
    <Link to="/"> <h2>What's that?</h2></Link>
-   <h3> Know your terms, understand your code, find solutions</h3>
+   <h3> Learn to describe your code</h3>
    </header>)
 
 }

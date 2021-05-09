@@ -52,11 +52,12 @@ const SingleAsk = () => {
 return (
 <div> 
          {ask?
-         (<div>
+         (<div> 
+            <div class="card">
             <p> What's that {ask["_id"]} / Submitted on {ask.time}</p>
-            <h3> What is  </h3>
-            <h3><span class="highlight">{ask.whatsthat}</span></h3>
-            <h3> in my code: </h3>
+            <h4> What is  </h4>
+            <h4><span class="highlight">{ask.whatsthat}</span></h4>
+            <h4> in my code: </h4>
             <pre className="line-numbers" >
                <code
                ref={code}
@@ -64,6 +65,7 @@ return (
                   {ask.body}
                </code>
             </pre>
+            </div>
          <GuessForm setFormSubmitted={setFormSubmitted}/>
          <Guesses id={id} formSubmitted={formSubmitted} setFormSubmitted={setFormSubmitted}/>
          </div>)

@@ -15,7 +15,6 @@ import { SingleBedOutlined } from '@material-ui/icons';
 
 import SignIn from './routes/user/SignIn';
 import SignUp from './routes/user/SignUp';
-import SecretInfo from './routes/user/SecretInfo';
 import {useContext, Fragment} from 'react';
 import {AuthContext} from './context/AuthContext'
 function App() {
@@ -40,7 +39,7 @@ function App() {
             <Grid item xs={12}> 
               <Nav selected="Ask" notSelected1="Guess" notSelected2="Search"/>
             </Grid>
-            <Grid item xs={12} className="body" style={{marginTop: '16px'}}> 
+            <Grid item xs={12} className="body" style={{marginTop: '16px',paddingRight:'96px', paddingLeft:'96px'}}> 
               <Ask />
             </Grid>
           </Route>
@@ -49,7 +48,7 @@ function App() {
             <Grid item xs={12}> 
                 <Nav selected="Ask" notSelected1="Guess" notSelected2="Search"/>
               </Grid>
-              <Grid item xs={12} className="body" style={{marginTop: '16px'}}> 
+              <Grid item xs={12} className="body" style={{marginTop: '16px', paddingRight:'96px', paddingLeft:'96px'}}> 
                 <SingleAsk />
               </Grid>
             </Route>

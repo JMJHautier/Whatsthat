@@ -5,6 +5,10 @@ import './prism.css'
 import { useForm } from "react-hook-form";
 // import ReactQuill from 'react-quill'; 
 import 'react-quill/dist/quill.snow.css';
+import {Button} from '@material-ui/core';
+import useStyles from './styles.js'
+
+
 
 const Step2 = ({language, content, setContent, onSubmit, prevFormStep, whatsthat, setWhatsthat, nextFormStep}) => {
 
@@ -22,14 +26,15 @@ const { register, handleSubmit, watch, formState: { errors, isValid} } = useForm
   //     setWhatsthat(text.substring(selection.index, selection.length))
   //    } 
   //  }
-
+  const classes= useStyles();
   useEffect(() => {
     Prism.highlightAll();
   }, []);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input type="submit" onClick={prevFormStep} value="previous"/>
+      <Button className={classes.smallbutton} variant="contained" size="large" color="primary" onClick={prevFormStep}> Previous </Button>
+
       {/*Using quill to select bits of text. I leave it here for reference, but it is no longer useful */}
       {/* <ReactQuill theme={null}
                   defaultValue={content}
@@ -55,10 +60,10 @@ const { register, handleSubmit, watch, formState: { errors, isValid} } = useForm
         {errors.Whatsthat && <p>{errors.Whatsthat.message}</p>}
 
       {whatsthat && 
-      (<input 
-        type="submit" 
-        onClick={nextFormStep} 
-        value="What's that"/>)}
+      (
+        <Button className={classes.button} variant="contained" size="large" color="primary"  onClick={nextFormStep}>
+           What's that? </Button>)
+      }
     </form>
 
   );
