@@ -66,7 +66,7 @@ function App() {
             <Grid item xs={12}> 
               <Nav selected="Guess" notSelected1="Ask" notSelected2="Search"/>
             </Grid>
-            <Grid item xs={12} className="body" style={{marginTop: '16px'}}> 
+            <Grid item xs={12} className="body" style={{marginTop: '16px', paddingRight:'96px', paddingLeft:'96px'}}> 
               <SingleAsk />
             </Grid>
           </Route>

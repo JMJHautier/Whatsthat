@@ -10,6 +10,14 @@ button: {
    background: "primary 80",
    border:"1px solid #d7ceb2"
   },
-});
+  root: {
+    "& .MuiFormLabel-root": {
+      color: "red"
+    }
+},
+label: {
+  color:"white !important",
+  marginBottom:"16px"
+}});
 
 export default useStyles

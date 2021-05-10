@@ -18,10 +18,23 @@
   text-align: center;
 }
 
-.card {
+/* .card {
   background-color: #2b3361;
   border: 1px solid black;
   border-radius: 25px;
   margin: 16px;
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+} */
+.card h4 {
+  color: white;
+  font-size: 1.75em;
+  width: 55vw;
+}
+
+.MuiFormLabel-root {
+  color: "blue";
+  height: 500;
 }

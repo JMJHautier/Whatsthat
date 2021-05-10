@@ -1,6 +1,8 @@
 import {useState, useEffect} from 'react';
 import CheckIcon from '@material-ui/icons/Check';
-import { Checkbox } from '@material-ui/core';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import { Button, Checkbox } from '@material-ui/core';
+import { ThumbUpAlt } from '@material-ui/icons';
 
 const GuessByAsk = ({id, formSubmitted}) => {
 
@@ -24,6 +26,8 @@ useEffect(() => {
 }, [id, formSubmitted, isIncrease])
 
 const increaseRating = async (event)=> {
+   console.log(event)
+
    let newRating; 
    if(event.target.className === "rating_positive"){
    newRating = {
@@ -85,6 +89,15 @@ return (
                      <td>{singleAsk.body}</td> 
                      <td>{singleAsk.comment}</td>
                      <td><button onClick={increaseRating} id={singleAsk["_id"]} className="rating_positive"> positive:</button>
+                     <Button
+                        id={singleAsk["_id"]}
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        onClick={increaseRating}
+                        className="rating_positive"
+                        startIcon={<ThumbUpAltIcon />}
+                        ></Button>
                       {singleAsk["rating_positive"]} 
                       <button onClick={increaseRating} id={singleAsk["_id"]} className="rating_negative" > negative:</button>
                        {singleAsk["rating_negative"]}</td> 
