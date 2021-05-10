@@ -3,8 +3,11 @@ import CheckIcon from '@material-ui/icons/Check';
 import { Button, Checkbox } from '@material-ui/core';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { DataGrid } from '@material-ui/data-grid';
 import { SingleBedOutlined } from '@material-ui/icons';
+import './guess.css';
+import {AccordionDetails, AccordionSummary, Accordion} from '@material-ui/core'
 
 const GuessByAsk = ({id, formSubmitted}) => {
 
@@ -12,8 +15,6 @@ const [allGuess, setAllGuess] = useState();
 const [isIncrease, setIsIncrease] = useState(false);
 // const [rows, setRows] = useState()
 const serverLink= process.env.REACT_APP_ORIGIN || "http://localhost:3001";
-
-
 
 
 useEffect(() => {
@@ -39,7 +40,7 @@ const increaseRating = async (event)=> {
    console.log(event)
 
    let newRating; 
-   if(event.target.innerHTML.includes("positive")){
+   if(event.target.innerHTML.includes("positive")||event.target.parentNode.outerHTML.includes("positive")){
    newRating = {
       rating_positive: true
    }
@@ -139,15 +140,17 @@ return (
 
                 {allGuess&&allGuess[0]?
                 (<table>
-                   <tr>
+                    <thead>
+                    <tr>
                       <th>Answer</th>
                       <th> Comment </th>
                       <th> Rating </th>
                    </tr>
-
+                   </thead>
+                  <tbody> 
                   {allGuess.map(singleAsk => {
                      return (<tr className={singleAsk.isVerified?"verified":"notverified"}> 
-                     <td>{singleAsk.body}</td> 
+                     <td><a href={singleAsk.source}> {singleAsk.body}</a></td> 
                      <td>{singleAsk.comment}</td>
                      <td>
                      <Button
@@ -170,6 +173,7 @@ return (
                         </td>
                      <td> <Checkbox onClick={getVerified} checked={singleAsk.isVerified} id={singleAsk["_id"]} /></td>
                      </tr>)})}
+                     </tbody>
                   </table>)
                :<h4>No answer submitted yet!</h4>
                }
