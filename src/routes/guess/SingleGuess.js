@@ -1,10 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import {useParams} from 'react-router-dom';
 import { useForm,Controller, control } from "react-hook-form";
 import {TextField, Button, FormLabel} from '@material-ui/core'
-import useStyles from '../ask/styles.js'
-
+import {AccordionDetails, AccordionSummary, Accordion} from '@material-ui/core'
+import useStyles from './styles.js';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {AuthContext} from '../../context/AuthContext.js'
 const SingleGuess = ({setFormSubmitted, formSubmitted}) => {
+   const {user} = useContext(AuthContext);
 
    const {id} = useParams(); 
    console.log(id)
@@ -19,6 +22,7 @@ const SingleGuess = ({setFormSubmitted, formSubmitted}) => {
          body: data.body,
          source: data.source,
          comment: data.comment,
+         author: user["_id"].trim()
          }
       console.log(newGuess);
       event.preventDefault()
@@ -61,9 +65,25 @@ const SingleGuess = ({setFormSubmitted, formSubmitted}) => {
    return (
 <div> 
    {!isSubmitted?(
+      <Accordion className={classes.accordion} style={{backgroundColor:"#587291", 
+      color:"#D7CEB2",
+      marginLeft:"-96px",
+      // width:"80%", 
+      // margin:"auto",
+      }}>
+           <AccordionSummary className={classes.accordionTitle}
+             expandIcon={<ExpandMoreIcon />}
+             aria-controls="panel1a-content"
+             id="panel1a-header"
+           >
+   
+         <p> Submit your answer</p>
+         </AccordionSummary>
+
+         <h3>  </h3>
+      <AccordionDetails style={{backgroundColor:"#587291"}}>
       <form onSubmit={handleSubmit(onSubmit, onError)}>
-         <h3> Submit your answer </h3>
-      <FormLabel className={classes.label} component="label"> (optional) Your answer (50 characters max)</FormLabel>
+      <FormLabel className={classes.label} component="label">Your answer (50 characters max)</FormLabel>
 
       <Controller
         name="body"
@@ -123,6 +143,8 @@ const SingleGuess = ({setFormSubmitted, formSubmitted}) => {
       <Button className={classes.button} type="submit" variant="contained" size="large" color="primary">Publish </Button>
       
       </form>
+      </AccordionDetails>
+      </Accordion>
    ):<h3>Thanks for your contribution!</h3>} 
    
 </div>

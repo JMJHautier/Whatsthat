@@ -1,0 +1,8 @@
+.submission {
+  border: 1px solid #d7ceb2;
+  border-radius: 25px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  padding: 5px 10px;
+  background-color: rgb(101, 125, 154);
+}

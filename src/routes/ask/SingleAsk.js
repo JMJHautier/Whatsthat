@@ -6,7 +6,7 @@ import {useParams} from 'react-router-dom';
 import Guesses from '../guess/GuessByAsk.js';
 import GuessForm from '../guess/SingleGuess.js';
 import {Button} from '@material-ui/core';
-
+import './ask.css'
 const SingleAsk = () => {
    const [ask, setAsk] = useState([])
    const [formSubmitted, setFormSubmitted] = useState(false); 
@@ -53,8 +53,8 @@ return (
 <div> 
          {ask?
          (<div> 
-            <div class="card">
-            <p> What's that {ask["_id"]} / Submitted on {ask.time}</p>
+            <div class="submission">
+            <p> Submitted by <strong> Jean</strong> on {ask.time}</p>
             <h4> What is  </h4>
             <h4><span class="highlight">{ask.whatsthat}</span></h4>
             <h4> in my code: </h4>
@@ -66,8 +66,9 @@ return (
                </code>
             </pre>
             </div>
+            <Guesses id={id} formSubmitted={formSubmitted} setFormSubmitted={setFormSubmitted}/>
+
          <GuessForm setFormSubmitted={setFormSubmitted}/>
-         <Guesses id={id} formSubmitted={formSubmitted} setFormSubmitted={setFormSubmitted}/>
          </div>)
          :(<p>Loading</p>)
          }

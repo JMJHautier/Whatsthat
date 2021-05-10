@@ -3,8 +3,12 @@ import CheckIcon from '@material-ui/icons/Check';
 import { Button, Checkbox } from '@material-ui/core';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { DataGrid } from '@material-ui/data-grid';
 import { SingleBedOutlined } from '@material-ui/icons';
+import './guess.css';
+import {AccordionDetails, AccordionSummary, Accordion, Typography} from '@material-ui/core'
+import useStyles from './styles.js';
 
 const GuessByAsk = ({id, formSubmitted}) => {
 
@@ -12,9 +16,7 @@ const [allGuess, setAllGuess] = useState();
 const [isIncrease, setIsIncrease] = useState(false);
 // const [rows, setRows] = useState()
 const serverLink= process.env.REACT_APP_ORIGIN || "http://localhost:3001";
-
-
-
+const classes= useStyles();
 
 useEffect(() => {
 
@@ -39,7 +41,7 @@ const increaseRating = async (event)=> {
    console.log(event)
 
    let newRating; 
-   if(event.target.innerHTML.includes("positive")){
+   if(event.target.innerHTML.includes("positive")||event.target.parentNode.outerHTML.includes("positive")){
    newRating = {
       rating_positive: true
    }
@@ -131,24 +133,67 @@ const getVerified = async (event) => {
 
 return (
    <div>
-      <h3> Previous answers </h3>
+      <Accordion className={classes.accordion} style={{backgroundColor:"#587291", 
+   color:"#D7CEB2",
+   marginLeft:"-96px",
+
+   // width:"80%", 
+   // margin:"auto"
+   }}>
+        <AccordionSummary className={classes.accordionTitle}
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+
+      {allGuess&&allGuess.length>0?<p> Check our {allGuess.length} responses</p>:<p>No response yet!</p>}
+      </AccordionSummary>
       {/* {rows&&rows[0]?
          (<div style={{ height: 400, width: '100%' }}> 
             <DataGrid rows={rows} columns={columns}/>
          </div>):<h4>No answer submitted yet!</h4> */}
-
+         <AccordionDetails style={{backgroundColor:"#587291"}}>
                 {allGuess&&allGuess[0]?
                 (<table>
-                   <tr>
-                      <th>Answer</th>
-                      <th> Comment </th>
-                      <th> Rating </th>
+                    <thead>
+                    <tr>
+                      <th class="radius">Answer</th>
+                      <th>By </th>
+                      <th>Rating </th>
                    </tr>
-
+                   </thead>
+                  <tbody> 
                   {allGuess.map(singleAsk => {
                      return (<tr className={singleAsk.isVerified?"verified":"notverified"}> 
-                     <td>{singleAsk.body}</td> 
-                     <td>{singleAsk.comment}</td>
+
+                     <td>
+                     <Accordion  style={{backgroundColor:"#587291", 
+                     color:"#D7CEB2",
+                     }}>
+                        <AccordionSummary style={{fontSize:"1.5em"}}
+                           expandIcon={<ExpandMoreIcon />}
+                           aria-controls="panel1a-content"
+                           id="panel1a-header"
+                        >
+                       
+                           
+                            {singleAsk.body}
+                            </AccordionSummary>
+                        <AccordionDetails style={{backgroundColor:"#587291",color:"white", fontSize:"1em", flexDirection:"column", alignItems:"start", width:"40%"}}>
+
+                       
+
+  
+
+                        {singleAsk.source!=''? <Typography style={{ wordWrap: "break-word" }}> <strong>source:</strong> <a href={singleAsk.source}>{singleAsk.source}</a> <br /></Typography>:<Typography>No source provided</Typography>}
+                        {singleAsk.comment!=''?<Typography style={{ wordWrap: "break-word" }}> <strong>comment:</strong> {singleAsk.comment}</Typography>:<Typography>No comment provided</Typography>}
+                        </AccordionDetails>
+                        </Accordion>
+                            </td>
+
+                     <td className="author"> Jean <br/>(53 guesses, 6 verified)
+                        {/* {singleAsk.author.username} */}
+                     </td>
                      <td>
                      <Button
                         id={singleAsk["_id"]}
@@ -170,9 +215,12 @@ return (
                         </td>
                      <td> <Checkbox onClick={getVerified} checked={singleAsk.isVerified} id={singleAsk["_id"]} /></td>
                      </tr>)})}
+                     </tbody>
                   </table>)
                :<h4>No answer submitted yet!</h4>
                }
+         </AccordionDetails>
+         </Accordion>
       </div>
    )
    }
