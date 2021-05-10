@@ -11,8 +11,15 @@ import Nav from './components/Nav.js'
 import SingleAsk from './routes/ask/SingleAsk.js'
 import SingleGuess from './routes/guess/SingleGuess.js'
 import {Grid} from '@material-ui/core'
+import { SingleBedOutlined } from '@material-ui/icons';
 
+import SignIn from './routes/user/SignIn';
+import SignUp from './routes/user/SignUp';
+import {useContext, Fragment} from 'react';
+import {AuthContext} from './context/AuthContext'
 function App() {
+  const {isAuthenticated} = useContext(AuthContext)
+
   return (
     <div className="App">
       <Header />
@@ -32,7 +39,7 @@ function App() {
             <Grid item xs={12}> 
               <Nav selected="Ask" notSelected1="Guess" notSelected2="Search"/>
             </Grid>
-            <Grid item xs={12} className="body" style={{marginTop: '16px'}}> 
+            <Grid item xs={12} className="body" style={{marginTop: '16px',paddingRight:'96px', paddingLeft:'96px'}}> 
               <Ask />
             </Grid>
           </Route>
@@ -41,7 +48,7 @@ function App() {
             <Grid item xs={12}> 
                 <Nav selected="Ask" notSelected1="Guess" notSelected2="Search"/>
               </Grid>
-              <Grid item xs={12} className="body" style={{marginTop: '16px'}}> 
+              <Grid item xs={12} className="body" style={{marginTop: '16px', paddingRight:'96px', paddingLeft:'96px'}}> 
                 <SingleAsk />
               </Grid>
             </Route>
@@ -59,7 +66,7 @@ function App() {
             <Grid item xs={12}> 
               <Nav selected="Guess" notSelected1="Ask" notSelected2="Search"/>
             </Grid>
-            <Grid item xs={12} className="body" style={{marginTop: '16px'}}> 
+            <Grid item xs={12} className="body" style={{marginTop: '16px', paddingRight:'96px', paddingLeft:'96px'}}> 
               <SingleAsk />
             </Grid>
           </Route>
@@ -77,7 +84,14 @@ function App() {
             <About />
           </Route>
           <Route path="/user">
-            <User />
+            {isAuthenticated?
+            (<Fragment> <User /> </Fragment>)
+            :
+            (<SignIn/>)}
+          </Route>
+
+          <Route path="/signup">
+                <SignUp />
           </Route>
         </Switch>
         </Grid>

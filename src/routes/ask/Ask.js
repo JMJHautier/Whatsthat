@@ -23,6 +23,9 @@ const Ask = () => {
             setFormStep(prevStep => prevStep -1)
       }
       const onSubmit = data => {
+            if(data.code){
+            setContent(data.code)
+            }
             setFormStep(prevStep => prevStep+1)
             console.log(data);
       }
@@ -30,7 +33,7 @@ const Ask = () => {
  <div> 
       {formStep === 0 && (
       <section> 
-            <h3>  1- Copy your code </h3>
+            <h3>  1- Pick your Language & Copy your code </h3>
             
                   <Step1 language={language} content={content} setContent={setContent} onSubmit={onSubmit} setLanguage={setLanguage} nextFormStep={nextFormStep}/>
       </section>)

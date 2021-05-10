@@ -5,41 +5,41 @@ import './prism.css'
 import {useParams} from 'react-router-dom';
 import Guesses from '../guess/GuessByAsk.js';
 import GuessForm from '../guess/SingleGuess.js';
+import {Button} from '@material-ui/core';
 
 const SingleAsk = () => {
    const [ask, setAsk] = useState([])
    const [formSubmitted, setFormSubmitted] = useState(false); 
-
+   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
    const {id} = useParams();
 
    const code = useRef();
 
    const highlight = (text) => {
-      setTimeout(()=>{
+      
       let innerHTML = code.current.innerHTML;
      
 
-         if(innerHTML != '' && ask.whatsthat != undefined) {
             console.log(innerHTML)
-            console.log(ask.whatsthat)
-         const index = innerHTML.indexOf(text);
+            console.log(ask.whatsthat.length)
+            console.log(text.length)
+         const index = innerHTML.indexOf(text.trim());
          console.log(index);
          if (index >= 0) { 
             innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
             code.current.innerHTML = innerHTML;
             }
-         }
-      },1000)
       
       }
-
+   
+   
    useEffect(() => {
       const getAsk = async () => {
-         const response = await fetch(`http://localhost:3001/ask/${id}`)
+         const response = await fetch(`${serverLink}/ask/${id}`)
          const data = await response.json();
          setAsk(data);
          console.log(ask);
-         highlight(ask.whatsthat);
+         ask.whatsthat?highlight(ask.whatsthat):console.log("loading")
 
       }
       getAsk();
@@ -52,11 +52,12 @@ const SingleAsk = () => {
 return (
 <div> 
          {ask?
-         (<div>
+         (<div> 
+            <div class="card">
             <p> What's that {ask["_id"]} / Submitted on {ask.time}</p>
-            <h3> What is  </h3>
-            <h3><span class="highlight">{ask.whatsthat}</span></h3>
-            <h3> in my code: </h3>
+            <h4> What is  </h4>
+            <h4><span class="highlight">{ask.whatsthat}</span></h4>
+            <h4> in my code: </h4>
             <pre className="line-numbers" >
                <code
                ref={code}
@@ -64,6 +65,7 @@ return (
                   {ask.body}
                </code>
             </pre>
+            </div>
          <GuessForm setFormSubmitted={setFormSubmitted}/>
          <Guesses id={id} formSubmitted={formSubmitted} setFormSubmitted={setFormSubmitted}/>
          </div>)

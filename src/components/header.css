@@ -1,14 +1,15 @@
 h2 {
   font-size: 4em;
   text-align: center;
-  color: white;
+  color: lightgrey;
   margin-bottom: 20px;
+  font-family: "Georgia";
 }
 
 h3 {
   font-size: 2em;
   text-align: center;
-  color: #109648;
+  color: #d7ceb2;
 }
 
 a {

@@ -22,7 +22,13 @@ const theme = createMuiTheme({
   },
   typography: {
      fontFamily: 'Roboto',
-  }
-});
+  },
+  overrides: {
+    MuiFormControlLabel: {
+        label: {
+            fontSize: '4rem',
+        }
+    }
+}});
 
 export default theme;

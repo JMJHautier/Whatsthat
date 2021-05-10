@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,Fragment } from "react";
 import Prism from "prismjs";
 import './codeEditor.css';
 import './prism.css'
-import { useForm } from "react-hook-form";
+import { useForm, control, Controller } from "react-hook-form";
+import {TextField, Button, RadioGroup, FormControl, FormLabbel, FormControlLabel, Radio, FormLabel} from '@material-ui/core';
+import useStyles from './styles.js'
 
 const Step1 = ({language, content, setContent, onSubmit, setLanguage, nextFormStep}) => {
 
-  const { register, handleSubmit, watch, formState: { errors, isValid} } = useForm({mode:"all", defaultValues:{language:'javascript'}});
+  const { register, handleSubmit, control, watch, formState: { errors, isValid} } = useForm({mode:"all", defaultValues:{language:'javascript'}});
+  
+  const classes = useStyles();
 
   const handleKeyDown = evt => {
     let value = content,
@@ -29,61 +33,73 @@ const Step1 = ({language, content, setContent, onSubmit, setLanguage, nextFormSt
   useEffect(() => {
     Prism.highlightAll();
     console.log(language)
+    if(!language) {setLanguage('javascript')}
+
   }, [language, content]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-            {/* register your input into the hook by invoking the "register" function */}
+      <FormControl component="fieldset">
+      <FormLabel color="secondary" component="label" filled={true} focused={true}> What is the language of your code?</FormLabel>
+      <Controller
+        name="language"
+        control={control}
+        defaultValue="javascript"
+        rules={{required:{value:true, message:"Please pick language"}}}
+        setValue={language}
+        render={({field:{}, fieldState:{error}})=> (
+  
+          <RadioGroup name="language" onChange={(event)=>setLanguage(event.target.value)} 
+          error={!!error}
+          helperText={error?error.message:null}
+          row> 
+            <FormControlLabel value="javascript" control={<Radio />} label="Javascript"/>
+            <FormControlLabel value="HTML" control={<Radio />} label="HTML" />
+            <FormControlLabel value="CSS" control={<Radio />} label="CSS" />
+                  </RadioGroup>
+                )}/>
+            </FormControl> 
 
-                  <fieldset {...register("language",{required:{value:true, message:"Please pick language"}})}>
-                        <legend>Choose language:</legend>
-                        <input
-                        type="radio"
-                        id="javascript"
-                        name="language"
-                        value="javascript"
-                        checked={language === "javascript"}
-                        onChange={() => setLanguage("javascript")}
-                        defaultChecked="true"
-                        />
-                        <label htmlFor="javascript">JavaScript</label>
-                        <input
-                        type="radio"
-                        id="xml"
-                        name="language"
-                        value="markup"
-                        checked={language === "markup"}
-                        onChange={() => setLanguage("markup")}
-                        />
-                        <label htmlFor="Html">HTML</label>
-                        <input
-                        type="radio"
-                        id="css"
-                        name="language"
-                        value="css"
-                        checked={language === "css"}
-                        onChange={() => setLanguage("css")}
-                        />
-                        <label htmlFor="css">CSS</label>
-                  </fieldset>
+           
             {/* include validation with required or other standard HTML validation rules */}
             {errors.code && <p>{errors.code.message}</p>}
 
-    <div className="code-edit-container">
-      <textarea
-      {...register("code", {required:{value:true, message:"Please insert code",}})}
-        className="code-input"
-        value={content}
+    {/* < className="code-edit-container"> */}
+
+      <Controller
+        name="code"
+        control={control}
+        defaultValue=""
+        rules={{required:{value:true, message:"Please insert code"}}}
         onChange={evt => setContent(evt.target.value)}
         onKeyDown={handleKeyDown}
-      />
-      <pre className="line-numbers">
-        <code className={`language-${language}`}>{content}</code>
-      </pre>
-    </div>
-    <pre> {JSON.stringify(watch(), null, 2)}</pre>
-    <input disabled={!isValid} type="submit" onClick={nextFormStep} value="Next"/>
+        value={content}
+        render={({field:{onChange, handleKeyDown, content}, fieldState:{error}})=> (
+          <TextField
+          label="copy your code here!"
+          multiline
+          rowsMax={10}
+          fullWidth
+          value={content}
+          onChange={onChange}
+          error={!!error}
+          helperText={error?error.message:null}
+          onKeyDown={handleKeyDown}
+          variant="outlined"
+        />
+
+
+        )}/> 
+
+      {watch('code')&& 
+      (<Fragment> <h4>Preview</h4>
+      <pre className={`language-${language}`}>
+        <code className={`language-${language}`}>{watch('code')}</code>
+      </pre></Fragment> )}
+    
+      <Button className={classes.button} variant="contained" size="large" color="primary" disabled={!isValid} onClick={() => {setContent(watch('code'));nextFormStep()}}> Next </Button>
     </form>
+
 
   );
 };
