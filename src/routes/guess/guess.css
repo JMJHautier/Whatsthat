@@ -5,16 +5,10 @@ table {
   margin: auto;
   border-radius: 25px;
   border-spacing: 0;
-  background-color: black;
+  background-color: #0d0630;
   margin-bottom: 50px;
 }
-table tr:last-child td:first-child {
-  border-bottom-left-radius: 10px;
-}
 
-table tr:last-child td:last-child {
-  border-bottom-right-radius: 10px;
-}
 table,
 tr,
 td {
@@ -23,19 +17,19 @@ td {
   padding: 10px;
 }
 tr td .verified {
-  outline: 1px solid green;
+  outline: 1px solid rgb(6, 243, 6);
   display: block;
   margin: 10px;
   background-color: lightgreen;
 }
 
-thead {
-  font-size: 1.5em;
-  border-radius: 25px;
-}
-
+thead,
 th {
-  border-radius: 25px;
+  font-size: 1.25em;
+  background-color: #0d0630;
+  color: lightgrey;
+}
+thead {
 }
 tr:nth-child(even) {
   background-color: #0d0630;
@@ -43,4 +37,13 @@ tr:nth-child(even) {
 
 tr:nth-child(odd) {
   background-color: #657d9a;
+}
+.author {
+  color: lightgrey;
+}
+.radius {
+  border-top-left-radius: 25px;
+}
+a {
+  font-size: 1em;
 }
