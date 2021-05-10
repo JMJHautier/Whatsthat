@@ -1,8 +1,9 @@
 import {useState, useEffect} from 'react';
 import CheckIcon from '@material-ui/icons/Check';
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import { Button, Checkbox } from '@material-ui/core';
-import { ThumbUpAlt } from '@material-ui/icons';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
+
 
 const GuessByAsk = ({id, formSubmitted}) => {
 
@@ -29,7 +30,7 @@ const increaseRating = async (event)=> {
    console.log(event)
 
    let newRating; 
-   if(event.target.className === "rating_positive"){
+   if(event.target.innerHTML.includes("positive")){
    newRating = {
       rating_positive: true
    }
@@ -50,7 +51,9 @@ const increaseRating = async (event)=> {
         }
    console.log(event);
     try {
-      const response = await fetch(`${serverLink}/guess/${event.target.id}`, options)
+      let id;
+      if(event.target.id!=''){id=event.target.id} else {id=event.target.parentNode.id}
+      const response = await fetch(`${serverLink}/guess/${id}`, options)
       const data = await response.json()
       console.log(data) 
       setIsIncrease(!isIncrease)
@@ -88,19 +91,25 @@ return (
             return (<tr className={singleAsk.isVerified?"verified":"notverified"}> 
                      <td>{singleAsk.body}</td> 
                      <td>{singleAsk.comment}</td>
-                     <td><button onClick={increaseRating} id={singleAsk["_id"]} className="rating_positive"> positive:</button>
+                     <td>
                      <Button
                         id={singleAsk["_id"]}
                         variant="contained"
                         color="primary"
                         size="small"
                         onClick={increaseRating}
-                        className="rating_positive"
-                        startIcon={<ThumbUpAltIcon />}
-                        ></Button>
-                      {singleAsk["rating_positive"]} 
-                      <button onClick={increaseRating} id={singleAsk["_id"]} className="rating_negative" > negative:</button>
-                       {singleAsk["rating_negative"]}</td> 
+                        startIcon={<ThumbUpAltIcon id={singleAsk["_id"]} className="rating_positive"/>}
+                        >{singleAsk["rating_positive"]} </Button>
+                      
+                       </td> 
+                       <Button
+                        id={singleAsk["_id"]}
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        onClick={increaseRating}
+                        startIcon={<ThumbDownAltIcon id={singleAsk["_id"]} className="rating_negative"/>}
+                        >{singleAsk["rating_negative"]}</Button>
                      <td> <Checkbox onClick={getVerified} checked={singleAsk.isVerified} id={singleAsk["_id"]} /> 
                       </td>
                   </tr>)

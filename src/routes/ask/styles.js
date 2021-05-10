@@ -16,8 +16,8 @@ button: {
     }
 },
 label: {
-  color:"white !important",
-  marginBottom:"16px"
+  color:"white",
+  lineHeight:"3"
 }});
 
 export default useStyles

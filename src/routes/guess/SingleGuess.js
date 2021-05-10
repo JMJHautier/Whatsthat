@@ -63,7 +63,7 @@ const SingleGuess = ({setFormSubmitted, formSubmitted}) => {
    {!isSubmitted?(
       <form onSubmit={handleSubmit(onSubmit, onError)}>
          <h3> Submit your answer </h3>
-      <FormLabel className={classes.label} component="label" style={{color:"blue"}}> (optional) Your answer (50 characters max)</FormLabel>
+      <FormLabel className={classes.label} component="label"> (optional) Your answer (50 characters max)</FormLabel>
 
       <Controller
         name="body"
