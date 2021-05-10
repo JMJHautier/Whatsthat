@@ -1,20 +1,26 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, Fragment} from 'react';
 import CheckIcon from '@material-ui/icons/Check';
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import { Button, Checkbox } from '@material-ui/core';
-import { ThumbUpAlt } from '@material-ui/icons';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
+import { DataGrid } from '@material-ui/data-grid';
+import { SingleBedOutlined } from '@material-ui/icons';
 
 const GuessByAsk = ({id, formSubmitted}) => {
 
 const [allGuess, setAllGuess] = useState();
 const [isIncrease, setIsIncrease] = useState(false);
+// const [rows, setRows] = useState()
 const serverLink= process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 
 
+
+
 useEffect(() => {
+
    const getGuessesByAsk = async () => {
       try {
-         console.log(id)
+      console.log(id)
       const link=`${serverLink}/guess/ask/${id}`
       const response = await fetch(link)
       const data = await response.json()
@@ -23,13 +29,17 @@ useEffect(() => {
    } catch(error) {console.log(error)}
    }
    getGuessesByAsk();
-}, [id, formSubmitted, isIncrease])
+
+//    setRows([{answer:'hi', comment:"comment", rating:"rating", id:'2'},
+//    {answer:'hi there', comment:"comment", rating:"rating", id:'1'},
+// ]);
+   }, [id, formSubmitted, isIncrease])
 
 const increaseRating = async (event)=> {
    console.log(event)
 
    let newRating; 
-   if(event.target.className === "rating_positive"){
+   if(event.target.innerHTML.includes("positive")){
    newRating = {
       rating_positive: true
    }
@@ -50,9 +60,10 @@ const increaseRating = async (event)=> {
         }
    console.log(event);
     try {
-      const response = await fetch(`${serverLink}/guess/${event.target.id}`, options)
+      let id;
+      if(event.target.id!=''){id=event.target.id} else {id=event.target.parentNode.id}
+      const response = await fetch(`${serverLink}/guess/${id}`, options)
       const data = await response.json()
-      console.log(data) 
       setIsIncrease(!isIncrease)
     } catch (error) {console.log(error)}
   
@@ -79,35 +90,90 @@ const getVerified = async (event) => {
    }catch(error) {console.log(error)}
 }
 
+// const columns = [
+//    { field: 'answer', headerName: 'Answer'},
+//    { field: 'comment', headerName: 'Comment'},
+//    { field: 'rating', headerName: 'Rating'},
+//    {field:'id', headerName:'id'}
+// ];
+
+// useEffect(() => {
+// const myrows= allGuess&&allGuess[0]? allGuess.map(singleAsk => {
+//    return ({
+//       id: singleAsk["_id"],
+//       answer: singleAsk.body,
+//       comment:singleAsk.comment,
+//       rating: (<Fragment> 
+//                <Button
+//                   id={singleAsk["_id"]}
+//                   variant="contained"
+//                   color="primary"
+//                   size="small"
+//                   onClick={increaseRating}
+//                   startIcon={<ThumbUpAltIcon id={singleAsk["_id"]} className="rating_positive"/>}
+//                   >{singleAsk["rating_positive"]} </Button>
+//                <Button
+//                   id={singleAsk["_id"]}
+//                   variant="contained"
+//                   color="primary"
+//                   size="small"
+//                   onClick={increaseRating}
+//                   startIcon={<ThumbDownAltIcon id={singleAsk["_id"]} className="rating_negative"/>}
+//                   >{singleAsk["rating_negative"]}</Button>
+//                </Fragment>
+//                   )
+//          })
+//       }):"undefined";
+// console.log(myrows)
+// setRows(myrows);
+// console.log(rows);
+// }, [allGuess])
+
 return (
    <div>
       <h3> Previous answers </h3>
-      {allGuess&&allGuess[0]?
-         (<table> <tr> <th>Answer</th> <th>comment</th> <th>rating</th></tr>
-         {allGuess.map(singleAsk=>{
-            return (<tr className={singleAsk.isVerified?"verified":"notverified"}> 
+      {/* {rows&&rows[0]?
+         (<div style={{ height: 400, width: '100%' }}> 
+            <DataGrid rows={rows} columns={columns}/>
+         </div>):<h4>No answer submitted yet!</h4> */}
+
+                {allGuess&&allGuess[0]?
+                (<table>
+                   <tr>
+                      <th>Answer</th>
+                      <th> Comment </th>
+                      <th> Rating </th>
+                   </tr>
+
+                  {allGuess.map(singleAsk => {
+                     return (<tr className={singleAsk.isVerified?"verified":"notverified"}> 
                      <td>{singleAsk.body}</td> 
                      <td>{singleAsk.comment}</td>
-                     <td><button onClick={increaseRating} id={singleAsk["_id"]} className="rating_positive"> positive:</button>
+                     <td>
                      <Button
                         id={singleAsk["_id"]}
                         variant="contained"
                         color="primary"
                         size="small"
                         onClick={increaseRating}
-                        className="rating_positive"
-                        startIcon={<ThumbUpAltIcon />}
-                        ></Button>
-                      {singleAsk["rating_positive"]} 
-                      <button onClick={increaseRating} id={singleAsk["_id"]} className="rating_negative" > negative:</button>
-                       {singleAsk["rating_negative"]}</td> 
-                     <td> <Checkbox onClick={getVerified} checked={singleAsk.isVerified} id={singleAsk["_id"]} /> 
-                      </td>
-                  </tr>)
-         })}
-         </table>):<h4>No answer submitted yet!</h4>
-      }
-   </div>
+                        startIcon={<ThumbUpAltIcon id={singleAsk["_id"]} className="rating_positive"/>}
+                        >{singleAsk["rating_positive"]} </Button>
+
+                     <Button
+                        id={singleAsk["_id"]}
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        onClick={increaseRating}
+                        startIcon={<ThumbDownAltIcon id={singleAsk["_id"]} className="rating_negative"/>}
+                        >{singleAsk["rating_negative"]}</Button>
+                        </td>
+                     <td> <Checkbox onClick={getVerified} checked={singleAsk.isVerified} id={singleAsk["_id"]} /></td>
+                     </tr>)})}
+                  </table>)
+               :<h4>No answer submitted yet!</h4>
+               }
+      </div>
    )
    }
 

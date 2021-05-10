@@ -34,7 +34,10 @@
   width: 55vw;
 }
 
-.MuiFormLabel-root {
+/* .MuiFormLabel-root {
   color: "blue";
-  height: 500;
+} */
+.verified {
+  border: 5px solid green;
+  z-index: 0;
 }
