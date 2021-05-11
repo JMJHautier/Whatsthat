@@ -82,15 +82,21 @@ function App() {
           <Route path="/About">
             <About />
           </Route>
+
           <Route path="/user">
-            {isAuthenticated?
-            (<Fragment> <User /> </Fragment>)
-            :
-            (<SignIn/>)}
+            <Grid item xs={12} className="body" style={{marginTop: '16px', paddingRight:'96px', paddingLeft:'96px', marginBottom:"96px", paddingBottom:"48px"}}> 
+
+              {isAuthenticated?
+              (<Fragment> <User /> </Fragment>)
+              :
+              (<SignIn/>)}
+            </Grid>
           </Route>
 
           <Route path="/signup">
+            <Grid item xs={12} className="body" style={{marginTop: '16px', paddingRight:'96px', paddingLeft:'96px', marginBottom:"96px", paddingBottom:"48px"}}> 
                 <SignUp />
+            </Grid>
           </Route>
         </Switch>
         </Grid>
