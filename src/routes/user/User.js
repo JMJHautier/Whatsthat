@@ -68,7 +68,7 @@ const updateAlert = async (event, id) => {
 
 }
    return (<div> <h3 style={{width:"54.5vw"}}>Welcome, {username} </h3>
-    {ask?
+    {ask&&ask[0]?
     (<div> 
    <h4 style={{textAlign:"center"}}> Your list of questions</h4>
    <table>
