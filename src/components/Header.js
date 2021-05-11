@@ -6,6 +6,9 @@ import {Fragment, useContext} from 'react';
 import {AuthContext} from '../context/AuthContext.js'
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { motion, AnimateSharedLayout, useAnimation } from "framer-motion";
+
+
 const Header = () => {
    const {isAuthenticated, logOut, user} = useContext(AuthContext);
    const {username} = user;
@@ -20,8 +23,8 @@ const Header = () => {
          :(<div> <Link to="/user"> Log-in </Link> / <Link to="signup">Register</Link></div>)}
 
       </Grid>
-   <Link to="/"> <h2>What's that?</h2></Link>
-   <h3> Learn to describe your code</h3>
+   <Link to="/"> <h2 style={{marginTop:"10px"}}>What's that?</h2></Link>
+   <motion.h3 animate={{initial:{opacity:0}, opacity:1}}> Learn to describe your code</motion.h3>
    </header>)
 
 }
