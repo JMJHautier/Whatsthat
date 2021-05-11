@@ -1,0 +1,13 @@
+h3 .search {
+  background-color: black;
+}
+
+.search h4 {
+  border: 1px solid orange;
+  border-radius: 10px;
+  width: 50%;
+  margin: auto;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  padding: 16px;
+}

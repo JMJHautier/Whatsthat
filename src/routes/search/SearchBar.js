@@ -1,7 +1,7 @@
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {useState, useEffect} from 'react';
-
+import './search.css'
 
 const SearchBar = ({value, setValue}) => {
 
@@ -26,18 +26,18 @@ const [allGuesses, setAllGuesses] = useState();
     };
 
    return (
-      <div>
-      <h3>  This is the Search page </h3>
+      <div class="search">
       {allGuesses?
       (<Autocomplete
         {...defaultProps}
         value={value}
+        style={{width:"40%", margin:"auto"}}
         onChange={(event, newValue) => {
            setValue(newValue)
         }}
         id="answers"
         debug
-        renderInput={(params) => <TextField {...params} label="search a term" margin="normal" />}
+        renderInput={(params) => <TextField {...params} label="e.g. Tag, hook, propriety..." margin="normal" />}
       />):<p></p>}
 
 
