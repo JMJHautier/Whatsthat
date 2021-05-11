@@ -185,14 +185,14 @@ return (
                            
                             {singleAsk.body}
                             </AccordionSummary>
-                        <AccordionDetails style={{backgroundColor:"#587291",color:"white", fontSize:"1em", flexDirection:"column", alignItems:"start", width:"40%"}}>
+                        <AccordionDetails style={{backgroundColor:"#587291",color:"white", fontSize:"1em", flexDirection:"column", alignItems:"start", justifyContent:"start", width:"40%"}}>
 
                        
 
   
 
-                        {singleAsk.source!=''? <Typography style={{ wordWrap: "break-word" }}> <strong>source:</strong> <a href={singleAsk.source}>{singleAsk.source}</a> <br /></Typography>:<Typography>No source provided</Typography>}
-                        {singleAsk.comment!=''?<Typography style={{ wordWrap: "break-word" }}> <strong>comment:</strong> {singleAsk.comment}</Typography>:<Typography>No comment provided</Typography>}
+                        {singleAsk.source!=''? <Typography style={{  textAlign:"left" }}> <strong>source:</strong> <a href={singleAsk.source}>{singleAsk.source}</a> <br /></Typography>:<Typography>No source provided</Typography>}
+                        {singleAsk.comment!=''?<Typography style={{ textAlign:"left"}}> <strong>comment:</strong> {singleAsk.comment}</Typography>:<Typography>No comment provided</Typography>}
                         </AccordionDetails>
                         </Accordion>
                             </td>
