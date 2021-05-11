@@ -14,7 +14,8 @@ const Ask = () => {
       const [content, setContent] = useState();
       const [whatsthat, setWhatsthat] = useState(""); 
       const [onlineId, setOnlineId] = useState('');
-       const askId = `ask/${onlineId}`;
+      const askId = `ask/${onlineId}`;
+      const {isAuthenticated} = useContext(AuthContext)
 
       const { register, handleSubmit, watch, formState: { errors, isValid} } = useForm({mode:"all"});
       const nextFormStep = () => {
@@ -31,7 +32,7 @@ const Ask = () => {
             console.log(data);
       }
    return (
- <div> 
+ <div>{isAuthenticated?<div> 
       {formStep === 0 && (
       <section> 
             <h3 style={{width:"55vw"}}>  1- Pick your Language & Copy your code </h3>
@@ -64,8 +65,7 @@ const Ask = () => {
                   <Step4 askId={askId} nextFormStep={nextFormStep} formStep={formStep}/>
 
             </section>
-      )}
-{/* <pre> {JSON.stringify(watch(), null, 2)}</pre> */}
+      )}</div>:(<div> <h3 style={{width:"55vw"}}>Login to post questions!</h3> <h4> Click <Link to="../user"> here</Link> to login. Don't have an account yet? Click <Link to="../signup"> here</Link> to sign-up!</h4> </div>)} 
 </div>
    ) 
 }
