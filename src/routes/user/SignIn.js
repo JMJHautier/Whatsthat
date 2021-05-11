@@ -1,14 +1,17 @@
-import { useForm } from "react-hook-form";
 import {useContext} from 'react';
 import {AuthContext} from '../../context/AuthContext'; 
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
+import useStyles from '../ask/styles.js';
+import { useForm,Controller} from "react-hook-form";
+import {FormLabel, TextField, Button} from '@material-ui/core'
 
 const SignIn = () => {
 
    const {isAuthenticated, setIsAuthenticated, error, setError, getUser}= useContext(AuthContext); 
    const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
-   const { register, handleSubmit, watch, formState: { errors, isValid, isSubmitted, onError} } = useForm({mode:"all"});
-   
+   const { register, handleSubmit, watch, control, formState: { errors, isValid, isSubmitted, onError} } = useForm({mode:"all"});
+   const classes = useStyles();
+
    const onSubmit = async (data, event) => 
       {
          const {password, email} = data;
@@ -46,39 +49,50 @@ const SignIn = () => {
     return (<div>
        {error && <div> error {error}</div>}
    <form onSubmit={handleSubmit(onSubmit, onError)}>
-            <h3> Sign in </h3>
+   <h3> Sign in </h3>
 
-            <label htmlFor="email">Your email</label>
-            <input
-               id="email"
-               type="text"
-               {...register("email")}
-            />
-            {errors.email && <p>{errors.email.message}</p>}
+   <FormLabel className={classes.label} component="label">Your email</FormLabel>
+
+      <Controller
+      name="email"
+      control={control}
+      defaultValue=""
+      render={({field:{onChange, value}, fieldState:{error}})=> (
+         <TextField
+         label="type here"
+         rowsMax={1}
+         fullWidth
+         value={value}
+         onChange={onChange}
+         error={!!error}
+         helperText={error?error.message:null}
+         variant="outlined"
+      />
+      )}/>
+
+<FormLabel className={classes.label} component="label">Your password</FormLabel>
+<Controller
+  name="password"
+  control={control}
+  defaultValue=""
+  render={({field:{onChange, value}, fieldState:{error}})=> (
+    <TextField
+    label="type here"
+    rowsMax={1}
+    type="password"
+    fullWidth
+    value={value}
+    onChange={onChange}
+    error={!!error}
+    helperText={error?error.message:null}
+    variant="outlined"
+  />
+  )}/>
+
+   <Button className={classes.button} disabled={!isValid} type="submit" variant="contained" size="large" color="primary">Sign-in </Button>
    
-            <label htmlFor="password">Password(at least 8 characters, including one special character)</label>
-            <input
-               id="password"
-               type="password"
-               {...register("password")}
-            />
-            {/* <input
-               id="passwordCheck"
-               type="password"
-               {...register("passwordCheck",{
-               required: {value:true, message:"Please rewrite your password"},
-               maxLength:{value:20, message:"Your Password is too long! Please pick a passwordCheck between 8 and 20 characters"}, 
-               minLength:{value:8, message:"Your Password is too short! Please submit at least 8 characters"}, 
-               pattern:{value: /(?=.*[!?@#$%^&-+=()])/, message:"Please include at least one special character(!?@#$%&*()-+=^)"}
-               })}
-   
-            />
-            {errors.passwordCheck && <p>{errors.passwordCheck.message}</p>} */}
-   
-            <button type="submit">Submit</button>
-         
          </form>
-         <pre> {JSON.stringify(watch(), null, 2)}</pre>
+      <h4 style={{textAlign:"center"}}>No account yet? <Link to="/signup">Sign-up!</Link> </h4>
          </div>)
    }
    

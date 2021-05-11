@@ -4,6 +4,8 @@ import {Link, Redirect} from 'react-router-dom';
 import './header.css'
 import {Fragment, useContext} from 'react'; 
 import {AuthContext} from '../context/AuthContext.js'
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 const Header = () => {
    const {isAuthenticated, logOut, user} = useContext(AuthContext);
    const {username} = user;
@@ -14,7 +16,7 @@ const Header = () => {
       alignItems="flex-start"> 
 
          <Link to="/about"> <HelpIcon fontSize="large"/></Link>
-         {isAuthenticated?(<Link to="/user"> <span>My profile({username})</span> <div onClick={logOut}>Logout</div> </Link>)
+         {isAuthenticated?(<Link to="/user"> <div onClick={logOut} style={{display:"inline"}}><ExitToAppIcon fontSize="large"/></div> <span><AccountBoxIcon fontSize="large"/><div styles={{verticalAlign:"middle", display:"inline", marginBottom:"10px"}}>{username}</div></span></Link>)
          :(<div> <Link to="/user"> Log-in </Link> / <Link to="signup">Register</Link></div>)}
 
       </Grid>

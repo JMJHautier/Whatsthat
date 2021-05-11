@@ -1,11 +1,12 @@
 import {Button} from '@material-ui/core'
 import {Link} from 'react-router-dom'
-import {useState} from 'react'
+import {useState, useContext} from 'react'
 import { useForm } from "react-hook-form";
 import Step1 from './Step1.js';
 import Step2 from './Step2.js';
 import Step3 from './Step3.js';
 import Step4 from './Step4.js';
+import {AuthContext} from '../../context/AuthContext';
 
 const Ask = () => {
       const [formStep, setFormStep] = useState(0);
@@ -13,7 +14,8 @@ const Ask = () => {
       const [content, setContent] = useState();
       const [whatsthat, setWhatsthat] = useState(""); 
       const [onlineId, setOnlineId] = useState('');
-       const askId = `ask/${onlineId}`;
+      const askId = `ask/${onlineId}`;
+      const {isAuthenticated} = useContext(AuthContext)
 
       const { register, handleSubmit, watch, formState: { errors, isValid} } = useForm({mode:"all"});
       const nextFormStep = () => {
@@ -30,17 +32,17 @@ const Ask = () => {
             console.log(data);
       }
    return (
- <div> 
+ <div>{isAuthenticated?<div> 
       {formStep === 0 && (
       <section> 
-            <h3>  1- Pick your Language & Copy your code </h3>
+            <h3 style={{width:"55vw"}}>  1- Pick your Language & Copy your code </h3>
             
                   <Step1 language={language} content={content} setContent={setContent} onSubmit={onSubmit} setLanguage={setLanguage} nextFormStep={nextFormStep}/>
       </section>)
       }
       {formStep===1 && (
       <section> 
-            <h3> 2- Select the word that you don't know</h3>
+            <h3 style={{width:'55vw'}}> 2- Select the word that you don't know</h3>
 
                   <Step2 content={content} language={language} onSubmit={onSubmit} prevFormStep={prevFormStep} nextFormStep={nextFormStep} whatsthat={whatsthat} setWhatsthat={setWhatsthat}/>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -63,8 +65,7 @@ const Ask = () => {
                   <Step4 askId={askId} nextFormStep={nextFormStep} formStep={formStep}/>
 
             </section>
-      )}
-{/* <pre> {JSON.stringify(watch(), null, 2)}</pre> */}
+      )}</div>:(<div> <h3 style={{width:"55vw"}}>Login to post questions!</h3> <h4> Click <Link to="../user"> here</Link> to login. Don't have an account yet? Click <Link to="../signup"> here</Link> to sign-up!</h4> </div>)} 
 </div>
    ) 
 }

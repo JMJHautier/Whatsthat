@@ -6,15 +6,13 @@
 .body h3 {
   color: black;
   background-color: #d7ceb2;
-  width: 55vw;
+  width: 54.5vw;
   margin-left: -96px;
 }
 
 .body h4 {
   color: white;
   font-size: 1.75em;
-  width: 55vw;
-  margin-left: -96px;
   text-align: center;
 }
 
@@ -34,7 +32,10 @@
   width: 55vw;
 }
 
-.MuiFormLabel-root {
+/* .MuiFormLabel-root {
   color: "blue";
-  height: 500;
+} */
+.verified {
+  border: 5px solid green;
+  z-index: 0;
 }

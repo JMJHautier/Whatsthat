@@ -12,7 +12,6 @@ const [switchState, setSwitchState] = useState([]);
 console.log(switchState)
 const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 
-
 // useEffect(() => {
 // if(ask) {
 // setSwitchState(ask.map(singleAsk => {
@@ -68,27 +67,29 @@ const updateAlert = async (event, id) => {
   }
 
 }
-   return (<div> <h3>Welcome, {username} </h3>
-   <h4> Your list of questions</h4>
+   return (<div> <h3 style={{width:"54.5vw"}}>Welcome, {username} </h3>
+    {ask?
+    (<div> 
+   <h4 style={{textAlign:"center"}}> Your list of questions</h4>
    <table>
-     <tr> 
-      <th>"What's that"</th>
-      <th> Answers </th>
-      <th> time of submission</th>
-      <th> Notify me </th>
-    </tr> 
+     <thead> 
+        <tr> 
+          <th>"What's that"</th>
+          <th> Answers </th>
+          <th> Submitted on</th>
+          <th> Notify me </th>
+        </tr> 
+    </thead>
     
-
-    {ask && ask.map(singleAsk => {
+    <tbody> 
+    {ask.map(singleAsk => {
         
-      // const checkCheck = statusCheckbox[statusCheckbox.indexOf(singleAsk["_id"])].value
+      const hyperlink = `/ask/${singleAsk["_id"]}`
 
       return (
-      <FormControl component="fieldset">  
-        <FormGroup>   
             <tr> 
               <td>
-                {singleAsk.whatsthat}
+                <Link to={hyperlink}>{singleAsk.whatsthat}</Link>
               </td>
               <td>
                 {singleAsk.guess.length}
@@ -102,16 +103,15 @@ const updateAlert = async (event, id) => {
               control={<Switch
                 checked={alert.find(a =>a._id.trim() === singleAsk["_id"]) ? true :false }
                 onChange={(event) => updateAlert(event, singleAsk["_id"])}  />}
-              
             />
           </td>
             </tr>
-          </FormGroup>
-      </FormControl>
       )
     })}
-
+  </tbody>
    </table>
+   <h4>With 'notify me' on, you will receive email notification every time that your question receives an answer. </h4>
+   </div>):(<h4>You have not asked any question yet! </h4>)}
 </div>)
    
 }
