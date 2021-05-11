@@ -12,7 +12,6 @@ import SingleAsk from './routes/ask/SingleAsk.js'
 import SingleGuess from './routes/guess/SingleGuess.js'
 import {Grid} from '@material-ui/core'
 import { SingleBedOutlined } from '@material-ui/icons';
-
 import SignIn from './routes/user/SignIn';
 import SignUp from './routes/user/SignUp';
 import {useContext, Fragment} from 'react';
@@ -75,7 +74,7 @@ function App() {
             <Grid item xs={12}> 
               <Nav selected="Search" notSelected1="Guess" notSelected2="Ask"/>
             </Grid>
-            <Grid item xs={12} className="body" style={{marginTop: '16px'}}> 
+            <Grid item xs={12} className="body" style={{marginTop: '16px', paddingRight:'96px', paddingLeft:'96px', marginBottom:"96px", paddingBottom:"48px"}}> 
               <Search />
             </Grid>
           </Route>
