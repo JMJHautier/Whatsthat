@@ -34,7 +34,7 @@ const Ask = () => {
  <div> 
       {formStep === 0 && (
       <section> 
-            <h3>  1- Pick your Language & Copy your code </h3>
+            <h3 style={{width:"55vw"}}>  1- Pick your Language & Copy your code </h3>
             
                   <Step1 language={language} content={content} setContent={setContent} onSubmit={onSubmit} setLanguage={setLanguage} nextFormStep={nextFormStep}/>
       </section>)
