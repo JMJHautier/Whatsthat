@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from "react";
-import {useParams} from 'react-router-dom';
+import {useParams, Link} from 'react-router-dom';
 import { useForm,Controller, control } from "react-hook-form";
 import {TextField, Button, FormLabel} from '@material-ui/core'
 import {AccordionDetails, AccordionSummary, Accordion} from '@material-ui/core'
@@ -7,7 +7,7 @@ import useStyles from './styles.js';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {AuthContext} from '../../context/AuthContext.js'
 const SingleGuess = ({setFormSubmitted, formSubmitted}) => {
-   const {user} = useContext(AuthContext);
+   const {user, isAuthenticated} = useContext(AuthContext);
 
    const {id} = useParams(); 
    console.log(id)
@@ -82,69 +82,71 @@ const SingleGuess = ({setFormSubmitted, formSubmitted}) => {
 
          <h3>  </h3>
       <AccordionDetails style={{backgroundColor:"#587291"}}>
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
-      <FormLabel className={classes.label} component="label">Your answer (50 characters max)</FormLabel>
+        {isAuthenticated?
+          (<form onSubmit={handleSubmit(onSubmit, onError)}>
+          <FormLabel className={classes.label} component="label">Your answer (50 characters max)</FormLabel>
 
-      <Controller
-        name="body"
-        control={control}
-        defaultValue=""
-        rules={{ required: {value: true, message:"Please provide an answer" }, maxLength:{value: 50, message:'Your answer is too long! Please keep it under 50 characters'}}}
-        render={({field:{onChange, value}, fieldState:{error}})=> (
-          <TextField
-          label="write your answer here"
-          rowsMax={1}
-          fullWidth
-          value={value}
-          onChange={onChange}
-          error={!!error}
-          helperText={error?error.message:null}
-          variant="outlined"
-        />)}/>
+          <Controller
+            name="body"
+            control={control}
+            defaultValue=""
+            rules={{ required: {value: true, message:"Please provide an answer" }, maxLength:{value: 50, message:'Your answer is too long! Please keep it under 50 characters'}}}
+            render={({field:{onChange, value}, fieldState:{error}})=> (
+              <TextField
+              label="write your answer here"
+              rowsMax={1}
+              fullWidth
+              value={value}
+              onChange={onChange}
+              error={!!error}
+              helperText={error?error.message:null}
+              variant="outlined"
+            />)}/>
 
-         <FormLabel className={classes.label} component="label"> (optional) Your source</FormLabel>
+            <FormLabel className={classes.label} component="label"> (optional) Your source</FormLabel>
 
-         <Controller
-        name="source"
-        control={control}
-        defaultValue=""
-        rules={{ pattern:{value: /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
-        message:"Please submit an hyperlink" }}}
-        render={({field:{onChange, value}, fieldState:{error}})=> (
-          <TextField
-          label="share an hyperlink here"
-          rowsMax={1}
-          fullWidth
-          value={value}
-          onChange={onChange}
-          error={!!error}
-          helperText={error?error.message:null}
-          variant="outlined"
-        />)}/>
-      <FormLabel className={classes.label} component="label" > (optional) Commment</FormLabel>
-      <Controller
-        name="comment"
-        control={control}
-        defaultValue=""
-        rules={{ maxLength:{value:150, message:"Please keep it under 150 characters"}}}
-        render={({field:{onChange, value}, fieldState:{error}})=> (
-          <TextField
-          label="add a 150 characters comment, if you wish"
-          multiline
-          rowsMax={2}
-          fullWidth
-          value={value}
-          onChange={onChange}
-          error={!!error}
-          helperText={error?error.message:null}
-          variant="outlined"
-        />)}/>
+            <Controller
+            name="source"
+            control={control}
+            defaultValue=""
+            rules={{ pattern:{value: /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+            message:"Please submit an hyperlink" }}}
+            render={({field:{onChange, value}, fieldState:{error}})=> (
+              <TextField
+              label="share an hyperlink here"
+              rowsMax={1}
+              fullWidth
+              value={value}
+              onChange={onChange}
+              error={!!error}
+              helperText={error?error.message:null}
+              variant="outlined"
+            />)}/>
+          <FormLabel className={classes.label} component="label" > (optional) Commment</FormLabel>
+          <Controller
+            name="comment"
+            control={control}
+            defaultValue=""
+            rules={{ maxLength:{value:150, message:"Please keep it under 150 characters"}}}
+            render={({field:{onChange, value}, fieldState:{error}})=> (
+              <TextField
+              label="add a 150 characters comment, if you wish"
+              multiline
+              rowsMax={2}
+              fullWidth
+              value={value}
+              onChange={onChange}
+              error={!!error}
+              helperText={error?error.message:null}
+              variant="outlined"
+            />)}/>
 
-      <Button className={classes.button} type="submit" variant="contained" size="large" color="primary">Publish </Button>
-      
-      </form>
-      </AccordionDetails>
-      </Accordion>
+          <Button className={classes.button} type="submit" variant="contained" size="large" color="primary">Publish </Button>
+          
+          </form>):<div> <h3 style={{marginLeft:"-16px", width:"54.5vw"}}>Login to submit an answer!</h3> <h4> Click <Link to="../user"> here</Link> to login. Don't have an account yet? Click <Link to="../signup"> here</Link> to sign-up!</h4> </div>
+          }
+          </AccordionDetails>
+          </Accordion>
    ):<h3>Thanks for your contribution!</h3>} 
    
 </div>
