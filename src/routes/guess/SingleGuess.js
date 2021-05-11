@@ -80,7 +80,6 @@ const SingleGuess = ({setFormSubmitted, formSubmitted}) => {
          <p> Submit your answer</p>
          </AccordionSummary>
 
-         <h3>  </h3>
       <AccordionDetails style={{backgroundColor:"#587291"}}>
         {isAuthenticated?
           (<form onSubmit={handleSubmit(onSubmit, onError)}>
