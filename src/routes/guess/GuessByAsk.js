@@ -1,4 +1,4 @@
-import {useState, useEffect, Fragment} from 'react';
+import {useState, useEffect, useContext, Fragment} from 'react';
 import CheckIcon from '@material-ui/icons/Check';
 import { Button, Checkbox } from '@material-ui/core';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
@@ -9,13 +9,16 @@ import { SingleBedOutlined } from '@material-ui/icons';
 import './guess.css';
 import {AccordionDetails, AccordionSummary, Accordion, Typography} from '@material-ui/core'
 import useStyles from './styles.js';
+import {AuthContext} from '../../context/AuthContext';
 
 const GuessByAsk = ({id, formSubmitted}) => {
 
 const [allGuess, setAllGuess] = useState();
 const [isIncrease, setIsIncrease] = useState(false);
+const [hasVoted, setHasVoted] = useState([])
 // const [rows, setRows] = useState()
 const serverLink= process.env.REACT_APP_ORIGIN || "http://localhost:3001";
+const {user} = useContext(AuthContext);
 const classes= useStyles();
 
 useEffect(() => {
@@ -67,11 +70,14 @@ const increaseRating = async (event)=> {
       const response = await fetch(`${serverLink}/guess/${id}`, options)
       const data = await response.json()
       setIsIncrease(!isIncrease)
+      setHasVoted(prev=> [...prev, id]);
+
     } catch (error) {console.log(error)}
   
 }
 
 const getVerified = async (event) => {
+
    const newVerify = {
       isVerified: event.target.checked
    }
@@ -130,7 +136,7 @@ const getVerified = async (event) => {
 // setRows(myrows);
 // console.log(rows);
 // }, [allGuess])
-
+console.log(hasVoted)
 return (
    <div>
       <Accordion className={classes.accordion} style={{backgroundColor:"#587291", 
@@ -197,23 +203,26 @@ return (
                      <td>
                      <Button
                         id={singleAsk["_id"]}
+                        disabled={hasVoted.includes(singleAsk["_id"])}
                         variant="contained"
                         color="primary"
                         size="small"
                         onClick={increaseRating}
-                        startIcon={<ThumbUpAltIcon id={singleAsk["_id"]} className="rating_positive"/>}
+                        startIcon={<ThumbUpAltIcon disabled={true}
+                        id={singleAsk["_id"]} className="rating_positive"/>}
                         >{singleAsk["rating_positive"]} </Button>
 
                      <Button
                         id={singleAsk["_id"]}
+                        disabled={hasVoted.includes(singleAsk["_id"])}
                         variant="contained"
                         color="primary"
                         size="small"
                         onClick={increaseRating}
-                        startIcon={<ThumbDownAltIcon id={singleAsk["_id"]} className="rating_negative"/>}
+                        startIcon={<ThumbDownAltIcon disabled={hasVoted} id={singleAsk["_id"]} className="rating_negative"/>}
                         >{singleAsk["rating_negative"]}</Button>
                         </td>
-                     <td> <Checkbox onClick={getVerified} checked={singleAsk.isVerified} id={singleAsk["_id"]} /></td>
+                     <td> <Checkbox disabled={!user.admin} onClick={getVerified} checked={singleAsk.isVerified} id={singleAsk["_id"]} /></td>
                      </tr>)})}
                      </tbody>
                   </table>)
