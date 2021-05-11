@@ -1,10 +1,13 @@
 import Grid from '@material-ui/core/Grid';
 import {Link} from 'react-router-dom';
 import {Button} from '@material-ui/core/';
+import {useContext} from 'react'
+import {AuthContext} from '../../context/AuthContext';
+import useStyles from './styles.js'
 import './home.css';
 
 const Home = () => {
-
+   const classes=useStyles();
    return (
    <main>
       <div>
@@ -15,21 +18,26 @@ const Home = () => {
       spacing={2}
       > 
          <Grid item>
-            <Button variant="contained" color="primary" className="button-home" size="large"> 
-               <Link to="/ask"><strong>Ask</strong></Link>
-            </Button>
+         <Link to="/ask">
+            <Button variant="contained" color="primary" className={classes.button} size="large"> 
+             <strong>Ask</strong>
+            </Button></Link>
          </Grid>
 
          <Grid item>
-            <Button variant="contained" color="primary" className="button-home" size="large"> 
-               <Link to="/guess"><strong>Guess </strong></Link>
+         <Link to="/guess">
+            <Button variant="contained" color="primary" className={classes.button} size="large"> 
+              <strong>Guess </strong>
             </Button>
+            </Link>
          </Grid>
 
          <Grid item>
-            <Button variant="contained" color="primary" className="button-home" size="large"> 
-               <Link to="/search"><strong> Search </strong></Link>
+         <Link to="/search">
+            <Button variant="contained" color="primary" className={classes.button} size="large"> 
+              <strong> Search </strong>
              </Button>
+             </Link>
           </Grid>
       </Grid>
       </div>

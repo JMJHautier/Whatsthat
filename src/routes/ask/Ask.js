@@ -1,11 +1,12 @@
 import {Button} from '@material-ui/core'
 import {Link} from 'react-router-dom'
-import {useState} from 'react'
+import {useState, useContext} from 'react'
 import { useForm } from "react-hook-form";
 import Step1 from './Step1.js';
 import Step2 from './Step2.js';
 import Step3 from './Step3.js';
 import Step4 from './Step4.js';
+import {AuthContext} from '../../context/AuthContext';
 
 const Ask = () => {
       const [formStep, setFormStep] = useState(0);
@@ -33,7 +34,7 @@ const Ask = () => {
  <div> 
       {formStep === 0 && (
       <section> 
-            <h3>  1- Pick your Language & Copy your code </h3>
+            <h3 style={{width:"55vw"}}>  1- Pick your Language & Copy your code </h3>
             
                   <Step1 language={language} content={content} setContent={setContent} onSubmit={onSubmit} setLanguage={setLanguage} nextFormStep={nextFormStep}/>
       </section>)
