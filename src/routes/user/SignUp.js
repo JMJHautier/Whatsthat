@@ -1,5 +1,5 @@
 import { useForm,Controller, control } from "react-hook-form";
-import {useContext} from 'react';
+import {useContext,useState} from 'react';
 import {AuthContext} from '../../context/AuthContext'; 
 import {Redirect} from 'react-router-dom';
 import {FormLabel, TextField, Button} from '@material-ui/core'
@@ -7,6 +7,7 @@ import useStyles from '../ask/styles.js';
 
 const SignUp = () => {
 const {isAuthenticated, setIsAuthenticated, error, setError}= useContext(AuthContext); 
+const [reload, setReload] = useState(true)
 const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 const { register, handleSubmit, watch, control, formState: { errors, isValid, isSubmitted, onError} } = useForm({mode:"all"});
 const classes = useStyles();
@@ -45,8 +46,13 @@ const onSubmit = async (data, event) =>
       
       }
 if(isAuthenticated) {
-   window.location.reload(true)
-   return <Redirect to="/" /> 
+
+   // window.location.
+   // setReload(false)
+   const serverLink = process.env.REACT_APP_FRONT || "http://localhost:3000";
+
+   setTimeout(()=> { window.location.href = serverLink }, 5000)
+   return <h4> You have successfuly registered! You will be soon redirected </h4> 
 
 }
 
@@ -126,7 +132,6 @@ if(isAuthenticated) {
          <Button className={classes.button} disabled={!isValid} type="submit" variant="contained" size="large" color="primary">Sign-up </Button>
       
       </form>
-      <pre> {JSON.stringify(watch(), null, 2)}</pre>
       </div>)
 }
 
