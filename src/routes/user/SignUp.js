@@ -51,7 +51,7 @@ if(isAuthenticated) {
    // setReload(false)
    const serverLink = process.env.REACT_APP_FRONT || "http://localhost:3000";
 
-   setTimeout(()=> { window.location.href = serverLink }, 25000)
+   setTimeout(()=> { window.location.href = serverLink }, 2500)
    return <h4> You have successfuly registered! You will be soon redirected </h4> 
 
 }
