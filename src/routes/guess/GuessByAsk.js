@@ -191,8 +191,8 @@ return (
 
   
 
-                        {singleAsk.source!=''? <Typography style={{  textAlign:"left" }}> <strong>source:</strong> <a href={singleAsk.source}>{singleAsk.source}</a> <br /></Typography>:<Typography>No source provided</Typography>}
-                        {singleAsk.comment!=''?<Typography style={{ textAlign:"left"}}> <strong>comment:</strong> {singleAsk.comment}</Typography>:<Typography>No comment provided</Typography>}
+                        {singleAsk.source!=''? <Typography style={{textAlign:"left" }}> <strong>source:</strong> <a href={singleAsk.source}>{singleAsk.source}</a> <br /></Typography >:<Typography style={{textAlign:"left" }}>No source provided</Typography>}
+                        {singleAsk.comment!=''?<Typography style={{textAlign:"left"}}> <strong>comment:</strong> {singleAsk.comment}</Typography>:<Typography style={{textAlign:"left" }}>No comment provided</Typography>}
                         </AccordionDetails>
                         </Accordion>
                             </td>
