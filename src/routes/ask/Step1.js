@@ -39,32 +39,6 @@ const Step1 = ({language, content, setContent, onSubmit, setLanguage, nextFormSt
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl component="fieldset">
-      <FormLabel color="secondary" component="label" filled={true} focused={true}> What is the language of your code?</FormLabel>
-      <Controller
-        name="language"
-        control={control}
-        defaultValue="javascript"
-        rules={{required:{value:true, message:"Please pick language"}}}
-        setValue={language}
-        render={({field:{}, fieldState:{error}})=> (
-  
-          <RadioGroup name="language" onChange={(event)=>setLanguage(event.target.value)} 
-          error={!!error}
-          helperText={error?error.message:null}
-          row> 
-            <FormControlLabel value="javascript" control={<Radio />} label="Javascript"/>
-            <FormControlLabel value="HTML" control={<Radio />} label="HTML" />
-            <FormControlLabel value="CSS" control={<Radio />} label="CSS" />
-                  </RadioGroup>
-                )}/>
-            </FormControl> 
-
-           
-            {/* include validation with required or other standard HTML validation rules */}
-            {errors.code && <p>{errors.code.message}</p>}
-
-    {/* < className="code-edit-container"> */}
 
       <Controller
         name="code"
@@ -90,6 +64,28 @@ const Step1 = ({language, content, setContent, onSubmit, setLanguage, nextFormSt
 
 
         )}/> 
+        <FormControl component="fieldset" style={{marginTop:"32px"}}>
+        <FormLabel color="secondary" component="label" filled={true} focused={true} style={{color:"white"}}> What is the language of your code?</FormLabel>
+        <Controller
+        name="language"
+        control={control}
+        defaultValue="javascript"
+        rules={{required:{value:true, message:"Please pick language"}}}
+        setValue={language}
+        render={({field:{}, fieldState:{error}})=> (
+  
+          <RadioGroup name="language" onChange={(event)=>setLanguage(event.target.value)} 
+          error={!!error}
+          helperText={error?error.message:null}
+          row> 
+            <FormControlLabel value="javascript" control={<Radio />} label="Javascript"/>
+            <FormControlLabel value="HTML" control={<Radio />} label="HTML" />
+            <FormControlLabel value="CSS" control={<Radio />} label="CSS" />
+          </RadioGroup>
+                )}/>
+      </FormControl> 
+
+
 
       {watch('code')&& 
       (<Fragment> <h4>Preview</h4>

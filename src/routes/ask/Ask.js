@@ -40,7 +40,7 @@ const Ask = () => {
       }
       {formStep===1 && (
       <section> 
-            <h3> 2- Select the word that you don't know</h3>
+            <h3 style={{width:'55vw'}}> 2- Select the word that you don't know</h3>
 
                   <Step2 content={content} language={language} onSubmit={onSubmit} prevFormStep={prevFormStep} nextFormStep={nextFormStep} whatsthat={whatsthat} setWhatsthat={setWhatsthat}/>
             <form onSubmit={handleSubmit(onSubmit)}>

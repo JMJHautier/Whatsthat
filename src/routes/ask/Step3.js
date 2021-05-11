@@ -71,6 +71,7 @@ const onSubmit = async (event) => {
   return (
     <form onSubmit={onSubmit}>
       <Button className={classes.smallbutton} variant="contained" size="large" color="primary" onClick={prevFormStep}> Previous </Button>
+      <div class="submission">
       <h4> What is  </h4>
       <h4><span class="highlight">{whatsthat}</span></h4>
       <h4> in my code: </h4>
@@ -80,7 +81,7 @@ const onSubmit = async (event) => {
             {content}
          </code>
       </pre>
-
+      </div>
     <Button className={classes.button} variant="contained" size="large" color="primary" onClick={onSubmit}>Publish </Button>
 
     </form>)

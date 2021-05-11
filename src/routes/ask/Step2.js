@@ -50,8 +50,7 @@ const { register, handleSubmit, watch, formState: { errors, isValid} } = useForm
         </code>
       </pre>
 
-      <pre> {JSON.stringify(watch(), null, 2)}</pre>
-      <h3> you have selected: <em>{whatsthat}</em></h3>
+      <h3 style={{width:'55vw'}}> you have selected: <span class="highlight" style={{color:"white"}}>{whatsthat}</span></h3>
       <input
         hidden="true"
         disabled="true"
