@@ -29,10 +29,10 @@ th {
   background-color: #0d0630;
   color: lightgrey;
 }
-thead {
-}
+
 tr:nth-child(even) {
-  background-color: #0d0630;
+  background-color: #251e44;
+  color: lightgrey;
 }
 
 tr:nth-child(odd) {
