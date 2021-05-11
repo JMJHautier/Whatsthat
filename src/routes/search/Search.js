@@ -30,8 +30,12 @@ const Search = () => {
          else{console.log("no search done")}
       }
    , [value])
-      const webdoc=`https://developer.mozilla.org/en-US/docs/Glossary/${value.body}`
-      const stack=`https://stackoverflow.com/search?q=${value.body}`
+   let webdoc;
+   let stack;
+   if(value) {
+      webdoc=`https://developer.mozilla.org/en-US/docs/Glossary/${value.body}`
+      stack=`https://stackoverflow.com/search?q=${value.body}`
+   }
    return (
       <div class="search">
          <SearchBar value={value} setValue={setValue}/>
