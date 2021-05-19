@@ -47,8 +47,6 @@ const onSubmit = async (data, event) =>
       }
 if(isAuthenticated) {
 
-   // window.location.
-   // setReload(false)
    const serverLink = process.env.REACT_APP_FRONT || "http://localhost:3000";
 
    setTimeout(()=> { window.location.href = serverLink }, 2500)

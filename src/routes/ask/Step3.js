@@ -22,7 +22,6 @@ const Step3 = ({language, content, setContent, prevFormStep, whatsthat, setWhats
 
   useEffect(() => {
     Prism.highlightAll();
-    // <HighlightText text={whatsthat}/>;
     highlight(whatsthat)
   }, []);
 
