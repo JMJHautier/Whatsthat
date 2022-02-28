@@ -10,4 +10,4 @@ process.env.REACT_APP_ORIGIN=https://whatsthatapi.netlify.app/
 
 ## Technologies
 
-"What's that" has been developped with React, Material UI and Mongoose
+"What's that" has been developped with React, Material UI, nodeJS and Mongoose
