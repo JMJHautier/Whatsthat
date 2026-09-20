@@ -1,0 +1,51 @@
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE IF NOT EXISTS users (
+  id TEXT PRIMARY KEY,
+  username TEXT NOT NULL UNIQUE,
+  email TEXT NOT NULL UNIQUE COLLATE NOCASE,
+  password_hash TEXT NOT NULL,
+  admin INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS sessions (
+  token TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  expires_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS sessions_user_id_idx ON sessions(user_id);
+
+CREATE TABLE IF NOT EXISTS asks (
+  id TEXT PRIMARY KEY,
+  body TEXT NOT NULL,
+  whatsthat TEXT NOT NULL,
+  language TEXT NOT NULL,
+  author_id TEXT REFERENCES users(id) ON DELETE SET NULL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS asks_author_id_idx ON asks(author_id);
+
+CREATE TABLE IF NOT EXISTS guesses (
+  id TEXT PRIMARY KEY,
+  ask_id TEXT NOT NULL REFERENCES asks(id) ON DELETE CASCADE,
+  body TEXT NOT NULL,
+  source TEXT NOT NULL DEFAULT '',
+  comment TEXT NOT NULL DEFAULT '',
+  author_id TEXT REFERENCES users(id) ON DELETE SET NULL,
+  rating_positive INTEGER NOT NULL DEFAULT 0,
+  rating_negative INTEGER NOT NULL DEFAULT 0,
+  is_verified INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS guesses_ask_id_idx ON guesses(ask_id);
+
+CREATE TABLE IF NOT EXISTS alerts (
+  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  ask_id TEXT NOT NULL REFERENCES asks(id) ON DELETE CASCADE,
+  PRIMARY KEY (user_id, ask_id)
+);
+

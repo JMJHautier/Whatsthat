@@ -4,9 +4,9 @@ import SearchBar from './SearchBar.js'
 import {Button, Accordion, AccordionSummary, AccordionDetails} from '@material-ui/core'
 import useStyles from '../guess/styles.js'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import serverLink from '../../config';
 
 const Search = () => {
-   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
    const options = ['Option 1', 'Option 2'];
    const [value, setValue] = useState(options[0]);
    const [askByGuess, setAskByGuess] = useState();

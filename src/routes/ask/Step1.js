@@ -2,7 +2,7 @@ import React, { useState, useEffect,Fragment } from "react";
 import Prism from "prismjs";
 import './codeEditor.css';
 import './prism.css'
-import { useForm, control, Controller } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import {TextField, Button, RadioGroup, FormControl, FormLabbel, FormControlLabel, Radio, FormLabel} from '@material-ui/core';
 import useStyles from './styles.js'
 

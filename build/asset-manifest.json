@@ -1,24 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.4a5bc730.chunk.css",
-    "main.js": "/static/js/main.3eb7565a.chunk.js",
-    "main.js.map": "/static/js/main.3eb7565a.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.b6294b18.js",
-    "runtime-main.js.map": "/static/js/runtime-main.b6294b18.js.map",
-    "static/css/2.9198f199.chunk.css": "/static/css/2.9198f199.chunk.css",
-    "static/js/2.19a9f24c.chunk.js": "/static/js/2.19a9f24c.chunk.js",
-    "static/js/2.19a9f24c.chunk.js.map": "/static/js/2.19a9f24c.chunk.js.map",
+    "main.css": "/static/css/main.71b15eb6.css",
+    "main.js": "/static/js/main.cef2ee61.js",
+    "static/media/roboto-all-400-normal.woff": "/static/media/roboto-all-400-normal.b5a0a0df312d3423493b.woff",
+    "static/media/roboto-latin-400-normal.woff2": "/static/media/roboto-latin-400-normal.176f8f5bd5f02b3abfcf.woff2",
+    "static/media/roboto-cyrillic-ext-400-normal.woff2": "/static/media/roboto-cyrillic-ext-400-normal.dd55ea0a2e90d5d86e15.woff2",
+    "static/media/roboto-latin-ext-400-normal.woff2": "/static/media/roboto-latin-ext-400-normal.dcc07bcfcd475f34f20b.woff2",
+    "static/media/roboto-cyrillic-400-normal.woff2": "/static/media/roboto-cyrillic-400-normal.3605d18d8a4ce5bd39c3.woff2",
+    "static/media/roboto-greek-400-normal.woff2": "/static/media/roboto-greek-400-normal.352cc77aaed5208ce13c.woff2",
+    "static/media/roboto-vietnamese-400-normal.woff2": "/static/media/roboto-vietnamese-400-normal.52cebac009baf5592e7d.woff2",
+    "static/media/roboto-greek-ext-400-normal.woff2": "/static/media/roboto-greek-ext-400-normal.bc7ace6e50c7d9d4d959.woff2",
     "index.html": "/index.html",
-    "static/css/2.9198f199.chunk.css.map": "/static/css/2.9198f199.chunk.css.map",
-    "static/css/main.4a5bc730.chunk.css.map": "/static/css/main.4a5bc730.chunk.css.map",
-    "static/js/2.19a9f24c.chunk.js.LICENSE.txt": "/static/js/2.19a9f24c.chunk.js.LICENSE.txt",
-    "static/media/index.css": "/static/media/roboto-vietnamese-400-normal.52cebac0.woff2"
+    "main.71b15eb6.css.map": "/static/css/main.71b15eb6.css.map",
+    "main.cef2ee61.js.map": "/static/js/main.cef2ee61.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.b6294b18.js",
-    "static/css/2.9198f199.chunk.css",
-    "static/js/2.19a9f24c.chunk.js",
-    "static/css/main.4a5bc730.chunk.css",
-    "static/js/main.3eb7565a.chunk.js"
+    "static/css/main.71b15eb6.css",
+    "static/js/main.cef2ee61.js"
   ]
 }

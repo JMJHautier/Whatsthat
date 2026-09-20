@@ -4,11 +4,11 @@ import {Redirect, Link} from 'react-router-dom';
 import useStyles from '../ask/styles.js';
 import { useForm,Controller} from "react-hook-form";
 import {FormLabel, TextField, Button} from '@material-ui/core'
+import serverLink from '../../config';
 
 const SignIn = () => {
 
    const {isAuthenticated, setIsAuthenticated, error, setError, getUser}= useContext(AuthContext); 
-   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
    const { register, handleSubmit, watch, control, formState: { errors, isValid, isSubmitted, onError} } = useForm({mode:"all"});
    const classes = useStyles();
 
@@ -97,4 +97,3 @@ const SignIn = () => {
    }
    
    export default SignIn
-   

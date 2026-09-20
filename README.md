@@ -1,12 +1,22 @@
 # Welcome to What's that
 
 What's that is a tool to learn how to describe your code.
-You can access the service here: https://whatsthat.netlify.app/
+You can access the restored service here: https://whatsthat.german-fighter.workers.dev/
+
+The historical Netlify URL is also kept in the deployment configuration:
+https://whatsthat.netlify.app/
 
 ### Cloning
 
-If you wish to clone the project locally, don't forget to create an .env file, and add the following key-value pair for connection to the API:
-process.env.REACT_APP_ORIGIN=https://whatsthatapi.netlify.app/
+The frontend now uses a small Cloudflare Worker backed by D1. To override its URL locally,
+create an `.env` file with `REACT_APP_API_ORIGIN=http://localhost:8787`.
+
+The API lives in `cloudflare/` and can be deployed with:
+
+```bash
+npm run api:migrate:remote
+npm run api:deploy
+```
 
 ## Technologies
 

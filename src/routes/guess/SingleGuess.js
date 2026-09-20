@@ -1,18 +1,18 @@
 import React, {useEffect, useState, useContext} from "react";
 import {useParams, Link} from 'react-router-dom';
-import { useForm,Controller, control } from "react-hook-form";
+import { useForm,Controller } from "react-hook-form";
 import {TextField, Button, FormLabel} from '@material-ui/core'
 import {AccordionDetails, AccordionSummary, Accordion} from '@material-ui/core'
 import useStyles from './styles.js';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {AuthContext} from '../../context/AuthContext.js'
+import serverLink from '../../config';
 const SingleGuess = ({setFormSubmitted, formSubmitted}) => {
    const {user, isAuthenticated} = useContext(AuthContext);
 
    const {id} = useParams(); 
    console.log(id)
    const { register, handleSubmit, watch, control, formState: { errors, isValid, isSubmitted} } = useForm({mode:"all"});
-   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
    const classes = useStyles();
    const onSubmit = async (data, event) => 
    {

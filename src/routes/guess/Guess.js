@@ -1,10 +1,10 @@
 import {Link} from 'react-router-dom';
 import {useEffect, useState} from 'react'; 
+import serverLink from '../../config';
 
 const Guess = ({formSubmitted}) => {
    const randomLink=""; 
    const [allAsks, setAllAsks] = useState(['']);
-   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
    const allAsksLink = `${serverLink}/ask/`;
 
    useEffect (()=> {

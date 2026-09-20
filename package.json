@@ -27,14 +27,19 @@
     "react-hook-form": "^7.3.5",
     "react-quill": "^1.3.5",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
+    "react-scripts": "5.0.1",
     "web-vitals": "^1.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "api:dev": "npx wrangler dev --config cloudflare/wrangler.jsonc",
+    "api:migrate:local": "npx wrangler d1 execute whatsthat --local --file cloudflare/schema.sql --config cloudflare/wrangler.jsonc",
+    "api:migrate:remote": "npx wrangler d1 execute whatsthat --remote --file cloudflare/schema.sql --config cloudflare/wrangler.jsonc",
+    "api:deploy": "npx wrangler deploy --config cloudflare/wrangler.jsonc",
+    "site:deploy": "npm run build && node cloudflare/prepare-site.mjs && npx wrangler deploy --config cloudflare/site.wrangler.jsonc"
   },
   "eslintConfig": {
     "extends": [

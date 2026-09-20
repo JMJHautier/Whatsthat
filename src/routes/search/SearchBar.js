@@ -2,11 +2,11 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {useState, useEffect} from 'react';
 import './search.css'
+import serverLink from '../../config';
 
 const SearchBar = ({value, setValue}) => {
 
 const [allGuesses, setAllGuesses] = useState(); 
-   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 
    useEffect(()=> {
       const getAllGuesses = async () => {

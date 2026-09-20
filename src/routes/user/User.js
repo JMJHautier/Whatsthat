@@ -3,6 +3,7 @@ import {AuthContext} from '../../context/AuthContext'
 import {Link} from 'react-router-dom';
 import {Pagination, Checkbox, FormGroup, FormControlLabel, Switch, FormControl} from '@material-ui/core';
 import AvSkipNext from 'material-ui/svg-icons/av/skip-next';
+import serverLink from '../../config';
 
 const User = () => {
 const {user, setUser, getUser} = useContext(AuthContext);
@@ -10,7 +11,6 @@ const {username, email, ask, alert} = user;
 // const [statusCheckbox, setCheckbox] = useState([])
 const [switchState, setSwitchState] = useState([]);
 console.log(switchState)
-const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 
 // useEffect(() => {
 // if(ask) {

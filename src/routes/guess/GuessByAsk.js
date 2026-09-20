@@ -10,6 +10,7 @@ import './guess.css';
 import {AccordionDetails, AccordionSummary, Accordion, Typography} from '@material-ui/core'
 import useStyles from './styles.js';
 import {AuthContext} from '../../context/AuthContext';
+import serverLink from '../../config';
 
 const GuessByAsk = ({id, formSubmitted}) => {
 
@@ -17,7 +18,6 @@ const [allGuess, setAllGuess] = useState();
 const [isIncrease, setIsIncrease] = useState(false);
 const [hasVoted, setHasVoted] = useState([])
 // const [rows, setRows] = useState()
-const serverLink= process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 const {user} = useContext(AuthContext);
 const classes= useStyles();
 

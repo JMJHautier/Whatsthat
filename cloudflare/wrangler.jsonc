@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
+  "name": "whatsthat-api",
+  "main": "worker.js",
+  "compatibility_date": "2026-09-19",
+  "workers_dev": true,
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "whatsthat",
+      "database_id": "5a9b8970-1164-4781-8313-dec2ac71a5e4"
+    }
+  ]
+}

@@ -8,6 +8,7 @@ import {useContext} from 'react';
 import {AuthContext} from '../../context/AuthContext.js'; 
 import {Button} from '@material-ui/core'
 import useStyles from './styles.js'
+import serverLink from '../../config';
 
 
 const Step3 = ({language, content, setContent, prevFormStep, whatsthat, setWhatsthat, nextFormStep, setOnlineId}) => {
@@ -16,7 +17,6 @@ const Step3 = ({language, content, setContent, prevFormStep, whatsthat, setWhats
    const {user, getUser} = useContext(AuthContext); 
   const {_id}= user 
   const classes= useStyles();
-  const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
 
    const code = useRef();
 

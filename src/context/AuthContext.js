@@ -1,4 +1,5 @@
 import {createContext, useState, useEffect} from 'react';
+import serverLink from '../config';
 
 export const AuthContext = createContext();
 
@@ -6,8 +7,6 @@ const AuthState = ({children}) => {
    const [isAuthenticated, setIsAuthenticated] = useState(false); 
    const [user, setUser] = useState({});
    const [error, setError] = useState('')
-   const serverLink = process.env.REACT_APP_ORIGIN || "http://localhost:3001";
-
    const logOut = () => {
       localStorage.removeItem('token');
       setIsAuthenticated(false);
@@ -46,7 +45,7 @@ const AuthState = ({children}) => {
          
       } else {
          localStorage.removeItem('token');
-         setIsAuthenticated('false'); 
+         setIsAuthenticated(false);
          setUser('');
          console.log('token removed')
       }
